@@ -1,0 +1,25 @@
+{
+    "version": "0.0.13",
+    "filename": "/smallwork/bdallen/executable_files/policytool_exe/IN10-0316_Program_Files_Java_jre6_bin_policytool.exe.tmp",
+    "file_group": "policytool_exe",
+    "file_size": 464,
+    "file_modtime": 1018752391,
+    "md5": "CA990168EE4B589D97F45A27DF104B70",
+    "section_size": 500,
+    "texture_names": [
+        "sd",
+        "mean",
+        "mode",
+        "mode_count",
+        "entropy"
+    ],
+    "texture_vectors": [
+        [
+            111.64880921571249,
+            79.75862068965517,
+            0,
+            30.72,
+            175.0
+        ]
+    ]
+}

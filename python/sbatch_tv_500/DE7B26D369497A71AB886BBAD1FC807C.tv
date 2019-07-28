@@ -1,0 +1,25 @@
+{
+    "version": "0.0.13",
+    "filename": "/smallwork/bdallen/executable_files/powerpnt_exe/IL4-0007_Program_Files_Microsoft_Office_Office_POWERPNT.EXE.tmp",
+    "file_group": "powerpnt_exe",
+    "file_size": 160,
+    "file_modtime": 1561659786,
+    "md5": "DE7B26D369497A71AB886BBAD1FC807C",
+    "section_size": 500,
+    "texture_names": [
+        "sd",
+        "mean",
+        "mode",
+        "mode_count",
+        "entropy"
+    ],
+    "texture_vectors": [
+        [
+            124.16299519180424,
+            36.0125,
+            0,
+            48.64,
+            89.0
+        ]
+    ]
+}

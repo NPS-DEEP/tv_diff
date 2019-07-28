@@ -1,0 +1,25 @@
+{
+    "version": "0.0.13",
+    "filename": "/smallwork/bdallen/executable_files/iexplore_exe/PS01-043_WINNT_system32_dllcache_iexplore.exe.tmp",
+    "file_group": "iexplore_exe",
+    "file_size": 56,
+    "file_modtime": 913325732,
+    "md5": "35ED3DC51268CF6DBF7E50E069E62617",
+    "section_size": 500,
+    "texture_names": [
+        "sd",
+        "mean",
+        "mode",
+        "mode_count",
+        "entropy"
+    ],
+    "texture_vectors": [
+        [
+            20.65703294774159,
+            3.517857142857143,
+            0,
+            23.552,
+            35.0
+        ]
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "version": "0.0.13",
+    "filename": "/smallwork/bdallen/executable_files/webclnt_dll/IL006-0001_WINDOWS_system32_dllcache_webclnt.dll.tmp",
+    "file_group": "webclnt_dll",
+    "file_size": 426,
+    "file_modtime": 315861374,
+    "md5": "4FCBA159A07FAE25A8220DF69EA30216",
+    "section_size": 500,
+    "texture_names": [
+        "sd",
+        "mean",
+        "mode",
+        "mode_count",
+        "entropy"
+    ],
+    "texture_vectors": [
+        [
+            67.389909635276,
+            88.38732394366197,
+            32,
+            19.456,
+            145.0
+        ]
+    ]
+}

@@ -1,0 +1,18 @@
+# generated
+sbatch/*.csv
+sbatch/*_out.txt
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.cpp
+*.so
+
+# zip
+*.zip
+
+# vim
+*.swp
+*.swo
+
