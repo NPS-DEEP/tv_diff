@@ -86,7 +86,7 @@ class BrowserMainWindow(QObject):
         self.w = MasterQMainWindow(self.tv_main_window.w)
 
         # main window decoration
-        self.w.setGeometry(0,0,920,660)
+        self.w.setGeometry(0,0,920,685)
         self.w.setWindowTitle("Texture Vector Browser Version %s"%VERSION)
         self.w.setWindowIcon(QIcon(window_icon))
 
