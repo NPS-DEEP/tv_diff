@@ -51,7 +51,7 @@ class BrowserChangeManager(QObject):
         self.in_group = in_group
         self._emit()
 
-    # called from g_edge to signal file pair selection
+    # called from g_edge or browser_edge_window to signal file pair selection
     def edge_selected_event(self, edge_record, node_record_a, node_record_b):
 
         # make ordering reflect order in edge

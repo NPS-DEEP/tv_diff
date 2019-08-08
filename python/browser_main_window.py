@@ -18,6 +18,7 @@ from browser_graph_data_reader import read_nodes, read_edges
 from browser_annotation_widget import BrowserAnnotationWidget
 from browser_graph_widget import BrowserGraphWidget
 from browser_file1_window import BrowserFile1Window
+from browser_edge_window import BrowserEdgeWindow
 from tv_main_window import TVMainWindow
 from export_browser_graph import export_browser_graph
 
@@ -71,6 +72,9 @@ class BrowserMainWindow(QObject):
         self.browser_file1_window = BrowserFile1Window(self.all_nodes,
                                                  self.browser_change_manager)
 
+        # open edge window
+        self.browser_edge_window = BrowserEdgeWindow(self.all_nodes,
+                                                 self.browser_change_manager)
         # tv window
         self.tv_main_window = TVMainWindow(
                             self.browser_change_manager.signal_edge_selected)
@@ -112,9 +116,15 @@ class BrowserMainWindow(QObject):
     def define_actions(self):
         # open file 1
         self.action_open_file1 = QAction(QIcon(
-                       "icons/document-open-2.png"), "&Open...", self)
-        self.action_open_file1.setToolTip("Open File")
+                       "icons/circle_green.png"), "&Node...", self)
+        self.action_open_file1.setToolTip("Open .tv file node")
         self.action_open_file1.triggered.connect(self.select_and_open_file1)
+
+        # open edge
+        self.action_open_edge= QAction(QIcon(
+                       "icons/list-remove-3.png"), "&Edge...", self)
+        self.action_open_edge.setToolTip("View similarity edge")
+        self.action_open_edge.triggered.connect(self.select_and_open_edge)
 
         # scale in
         self.action_scale_in = QAction(QIcon(
@@ -151,6 +161,7 @@ class BrowserMainWindow(QObject):
         toolbar = self.w.addToolBar("TV Browser Toolbar")
         toolbar.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
         toolbar.addAction(self.action_open_file1)
+        toolbar.addAction(self.action_open_edge)
         toolbar.addWidget(self.browser_file_group_cb.browser_file_group_cb)
         toolbar.addWidget(QLabel(" ")) # before slider
         toolbar.addWidget(self.browser_threshold_slider.slider)
@@ -169,6 +180,16 @@ class BrowserMainWindow(QObject):
     @pyqtSlot()
     def select_and_open_file1(self):
         self.browser_file1_window.show_window()
+
+    @pyqtSlot()
+    def select_and_open_edge(self):
+
+        # get edge records from browser_graph_widget
+        g_edges = self.browser_graph_widget.scene.g_edges
+        edge_records = list()
+        for g_edge in g_edges:
+            edge_records.append(g_edge.edge_record)
+        self.browser_edge_window.show_window(edge_records)
 
     # export browser graph as image file
     @pyqtSlot()

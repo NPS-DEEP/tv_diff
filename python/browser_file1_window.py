@@ -55,7 +55,7 @@ class BrowserFile1Window(QObject):
     def _select_index(self, model_index):
         list_index = self.proxy_model.mapToSource(model_index).row()
         node_record=self.all_nodes[list_index]
-        print("_select_index")
+        print("Open file node")
         print(node_record.text())
         self.change_manager.change_node_record1(node_record)
         self.w.hide()

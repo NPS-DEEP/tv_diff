@@ -25,8 +25,6 @@ if __name__=="__main__":
     browser_main_window.w.show()
 
     # maybe select an index
-    print("args.index")
-    print(args.index)
     if args.index:
         try:
             browser_main_window.browser_change_manager.change_node_record1(
