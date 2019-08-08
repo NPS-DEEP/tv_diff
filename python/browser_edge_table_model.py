@@ -38,10 +38,20 @@ class BrowserEdgeTableModel(QAbstractTableModel):
             row = index.row()
             column = index.column()
 
+            # order it so the left index is smaller than the right index
             if column == 0:
-                return self.edge_records[row].index1
+                if self.edge_records[row].index1 < \
+                                       self.edge_records[row].index2:
+                    return self.edge_records[row].index1
+                else:
+                    return self.edge_records[row].index2
             if column == 1:
-                return self.edge_records[row].index2
+                if self.edge_records[row].index1 < \
+                                       self.edge_records[row].index2:
+                    return self.edge_records[row].index2
+                else:
+                    return self.edge_records[row].index1
+
             if column == 2:
                 return self.edge_records[row].sd
             if column == 3:
