@@ -12,7 +12,7 @@ from tv_icons import window_icon
 from version_file import VERSION
 from browser_change_manager import BrowserChangeManager
 from browser_file_group_cb import BrowserFileGroupCB
-from browser_threshold_slider import BrowserThresholdSlider
+from browser_threshold_sliders import BrowserThresholdSliders
 #from browser_graph_main_widget import BrowserGraphMainWidget
 from browser_graph_data_reader import read_nodes, read_edges
 from browser_annotation_widget import BrowserAnnotationWidget
@@ -49,14 +49,14 @@ class BrowserMainWindow(QObject):
         # change manager
         starting_node_record = self.all_nodes[0]
         self.browser_change_manager = BrowserChangeManager(
-                                       starting_node_record, 1.0, True)
+                                       starting_node_record, True, 1.0, 0.001)
 
         # file group checkbox
         self.browser_file_group_cb = BrowserFileGroupCB(
                                        self.browser_change_manager)
 
         # browser threshold slider
-        self.browser_threshold_slider = BrowserThresholdSlider(
+        self.browser_threshold_sliders = BrowserThresholdSliders(
                                        self.browser_change_manager)
 
         # current selection widget
@@ -86,7 +86,7 @@ class BrowserMainWindow(QObject):
         self.w = MasterQMainWindow(self.tv_main_window.w)
 
         # main window decoration
-        self.w.setGeometry(0,0,920,700)
+        self.w.setGeometry(0,0,920,660)
         self.w.setWindowTitle("Texture Vector Browser Version %s"%VERSION)
         self.w.setWindowIcon(QIcon(window_icon))
 
@@ -164,10 +164,8 @@ class BrowserMainWindow(QObject):
         toolbar.addAction(self.action_open_edge)
         toolbar.addWidget(self.browser_file_group_cb.browser_file_group_cb)
         toolbar.addWidget(QLabel(" ")) # before slider
-        toolbar.addWidget(self.browser_threshold_slider.slider)
+        toolbar.addWidget(self.browser_threshold_sliders)
         toolbar.addWidget(QLabel("  ")) # after slider
-        toolbar.addWidget(self.browser_threshold_slider.threshold_label)
-        toolbar.addWidget(QLabel("  ")) # after label
         toolbar.addAction(self.action_scale_in)
         toolbar.addAction(self.action_scale_out)
         toolbar.addAction(self.action_scale_original)

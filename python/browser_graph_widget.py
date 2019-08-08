@@ -100,7 +100,8 @@ class BrowserGraphWidget(QObject):
         # connect to schedule repaint on rescale
         change_manager.signal_browser_scale_changed.connect(self.change_scale)
 
-    def _make_g_nodes_g_edges(self, node_record1, threshold, in_group):
+    def _make_g_nodes_g_edges(self, node_record1, in_group,
+                              sd_threshold, max_over_sum_threshold):
         # We track node similarity then calculate node points after we have
         # max_similarity.  Then we can create correctly located edge points.
 
@@ -133,14 +134,19 @@ class BrowserGraphWidget(QObject):
             else:
                 edge_record = self.all_edges[(n, node1_index)]
 
-            # accept if exceeds threshold
-            if edge_record.sd >= threshold:
+            # skip if below SD threshold
+            if edge_record.sd < sd_threshold:
+                continue
 
-                # accept node
-                similarity = edge_record.sd
-                g_nodes.append(BrowserGNode(node_record, False,
-                               similarity, self.change_manager))
-                max_similarity = max(similarity, max_similarity)
+            # skip if below max/min threshold
+            if edge_record.maxv/edge_record.sumv < max_over_sum_threshold:
+                continue
+
+            # accept node
+            similarity = edge_record.sd
+            g_nodes.append(BrowserGNode(node_record, False,
+                           similarity, self.change_manager))
+            max_similarity = max(similarity, max_similarity)
 
         # edges
         g_edges = list()
@@ -156,18 +162,26 @@ class BrowserGraphWidget(QObject):
             if (i_a,i_b) in self.all_edges:
                 edge_record = self.all_edges[(i_a, i_b)]
 
-                # accept if exceeds threshold
-                if edge_record.sd >= threshold:
-                    g_edges.append(BrowserGEdge(edge_record, g_node_a, g_node_b,
-                                                      self.change_manager))
+                # skip if below SD threshold
+                if edge_record.sd < sd_threshold:
+                    continue
+
+                # skip if below max/min threshold
+                if edge_record.maxv/edge_record.sumv < max_over_sum_threshold:
+                    continue
+
+                g_edges.append(BrowserGEdge(edge_record, g_node_a, g_node_b,
+                                                  self.change_manager))
 
         return g_nodes, g_edges, max_similarity
 
     # call this to accept input change
-    @pyqtSlot(NodeRecord, float, bool)
-    def change_inputs(self, node_record1, threshold, in_group):
+    @pyqtSlot(NodeRecord, bool, float, float)
+    def change_inputs(self, node_record1, in_group,
+                      sd_threshold, max_over_sum_threshold):
         g_nodes, g_edges, max_similarity = self._make_g_nodes_g_edges(
-                                      node_record1, threshold, in_group)
+                                         node_record1, in_group,
+                                         sd_threshold, max_over_sum_threshold)
         self.scene.set_scene(g_nodes, g_edges, max_similarity)
 
     # call this to accept browser scale change
