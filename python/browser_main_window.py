@@ -162,7 +162,7 @@ class BrowserMainWindow(QObject):
     def select_and_open_edge(self):
 
         # get edge records from browser_graph_widget
-        g_edges = self.browser_graph_widget.scene.g_edges
+        g_edges = self.browser_graph_widget.scene.g_sd_edges
         edge_records = list()
         for g_edge in g_edges:
             edge_records.append(g_edge.edge_record)

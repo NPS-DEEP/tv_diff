@@ -44,8 +44,7 @@ class BrowserGraphScene(QGraphicsScene):
     def __init__(self):
         super(BrowserGraphScene, self).__init__()
         self.scale = browser_original_scale
-        self.g_nodes = list()
-        self.g_edges = list()
+        self.g_sd_edges = list() # in case user clicks edge button before node
 
         # annotation
         self.g_annotation = BrowserGAnnotation()
