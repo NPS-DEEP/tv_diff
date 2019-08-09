@@ -40,7 +40,7 @@ class BrowserGAxis(QGraphicsItem):
         self.setPos(0,dy)
 
         self.bounding_rect = QRectF(-80,-10,
-                                    X_MAX*scale+80+20, Y_MAX*scale+10+45)
+                                    X_MAX*scale+80+40, Y_MAX*scale+10+45)
 
         self.prepareGeometryChange()
 

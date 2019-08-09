@@ -16,7 +16,7 @@ from version_file import VERSION
 def export_browser_graph(graph_filename, scene):
 
     # define the bounding rectangle for pixmap for painter to paint in
-    w = int(scene.width()) + 40
+    w = int(scene.width()) + 20
     if w < 840:
         # adjust for when zoomed small
         w=840
