@@ -37,12 +37,12 @@ class BrowserGNode(QGraphicsItem):
         self.mouse_path.addEllipse(-10, -10, 20, 20)
 
     # set node position
-    def set_position(self, scale, max_similarity):
+    def set_position(self, dy, scale, max_similarity):
         x = (self.node_record.modtime-T_MIN)/T_SCALE * scale
         if self.is_node1:
-            y = 0
+            y = dy + 0
         else:
-            y = Y_MAX * (1 - self.similarity/max_similarity) * scale
+            y = dy + Y_MAX * (1 - self.similarity/max_similarity) * scale
         self.setPos(QPointF(x,y))
 
         self.prepareGeometryChange()

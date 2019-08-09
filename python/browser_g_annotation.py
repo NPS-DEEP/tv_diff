@@ -47,7 +47,7 @@ class BrowserGAnnotation(QGraphicsItem):
         for line in lines:
             w = max(w,fm.width(line))
         self.w = w
-        self.h = len(lines) * 18
+        self.h = 7 * 18
 
         self.prepareGeometryChange()
 

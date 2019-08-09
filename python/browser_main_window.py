@@ -58,15 +58,6 @@ class BrowserMainWindow(QObject):
         self.browser_threshold_sliders = BrowserThresholdSliders(
                                        self.browser_change_manager)
 
-#        # current selection widget
-#        self.browser_annotation_widget = BrowserAnnotationWidget(
-#                                                 self.browser_change_manager)
-
-#        # similarity graph widget
-#        self.browser_graph_widget = BrowserGraphWidget(
-#                        self.all_nodes, self.all_edges, self.all_connections,
-#                        self.browser_change_manager)
-
         # open file1 window
         self.browser_file1_window = BrowserFile1Window(self.all_nodes,
                                                  self.browser_change_manager)
@@ -82,7 +73,7 @@ class BrowserMainWindow(QObject):
         self.w = MasterQMainWindow(self.tv_main_window.w)
 
         # main window decoration
-        self.w.setGeometry(0,0,920,685)
+        self.w.setGeometry(0,0,920,985)
         self.w.setWindowTitle("Texture Vector Browser Version %s"%VERSION)
         self.w.setWindowIcon(QIcon(window_icon))
 
@@ -93,22 +84,6 @@ class BrowserMainWindow(QObject):
 
         # the similarity graph
         self.w.setCentralWidget(self.browser_graph_widget.view)
-
-#        # the central widget container
-#        self.central_widget_container = QWidget()
-#
-#        # the central widget container's current selection widget
-#        self.browser_annotation_widget.text_box.setParent(
-#                                          self.central_widget_container)
-#        self.browser_annotation_widget.text_box.move(10,10)
-#
-#        # the central widget container's central widget similarity view
-#        self.browser_graph_widget.view.setParent(
-#                                          self.central_widget_container)
-#        self.browser_graph_widget.view.move(10,210)
-#
-#        # the central widget
-#        self.w.setCentralWidget(self.central_widget_container)
 
         # actions
         self.define_actions()

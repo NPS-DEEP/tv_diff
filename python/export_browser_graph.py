@@ -20,7 +20,7 @@ def export_browser_graph(graph_filename, scene):
     if w < 840:
         # adjust for when zoomed small
         w=840
-    h = int(scene.height()) + 40 + 200
+    h = int(scene.height()) + 30
     pixmap = QPixmap(w, h)
     painter = QPainter(pixmap)
     painter.fillRect(0,0,w,h, QColor("#f0f0f0"))
@@ -30,21 +30,42 @@ def export_browser_graph(graph_filename, scene):
     option = QStyleOptionViewItem()
 
     # paint the annotation
-    painter.translate(20,20)
+    painter.translate(20,10)
     scene.g_annotation.paint(painter, option, None)
 
     # paint the graph
-    painter.translate(40,200)
+    painter.translate(65,0)
 
-    # nodes, edges, and axis
-    for edge in scene.g_edges:
+    # SD nodes, edges, and axis
+    for edge in scene.g_sd_edges:
         edge.paint(painter, option, None)
-    for node in scene.g_nodes:
+
+    for node in scene.g_sd_nodes:
         painter.save()
         painter.translate(node.pos())
         node.paint(painter, option, None)
         painter.restore()
-    scene.g_axis.paint(painter, option, None)
+
+    painter.save()
+    painter.translate(scene.g_sd_axis.pos())
+    scene.g_sd_axis.paint(painter, option, None)
+    painter.restore()
+
+    # ratio nodes, edges, and axis
+    for edge in scene.g_ratio_edges:
+        edge.paint(painter, option, None)
+
+    for node in scene.g_ratio_nodes:
+        painter.save()
+        painter.translate(node.pos())
+        node.paint(painter, option, None)
+        painter.restore()
+
+    painter.save()
+    painter.translate(scene.g_ratio_axis.pos())
+    scene.g_ratio_axis.paint(painter, option, None)
+    painter.restore()
+
     painter.end()
 
     # export

@@ -28,16 +28,19 @@ class BrowserGAxis(QGraphicsItem):
         x=(year-1995)/(2020-1995) * t_scale
         return x
 
-    def __init__(self, max_similarity):
+    def __init__(self, y_label):
         super(BrowserGAxis, self).__init__()
-        self.max_similarity = max_similarity
+        self.y_label = y_label
+        self.scale = 1
+        self.max_similarity = 0
 
-    def set_scale(self, scale):
+    def set_position(self, dy, scale, max_similarity):
         self.scale = scale
+        self.max_similarity = max_similarity
+        self.setPos(0,dy)
 
-        extra = 100
-        self.bounding_rect = QRectF(-50,-10,
-                                    X_MAX*scale+50+20, Y_MAX*scale+10+45)
+        self.bounding_rect = QRectF(-80,-10,
+                                    X_MAX*scale+80+20, Y_MAX*scale+10+45)
 
         self.prepareGeometryChange()
 
@@ -70,10 +73,14 @@ class BrowserGAxis(QGraphicsItem):
 
         # y axis annotation
         painter.drawLine(-gap, y_max, -gap-tick, y_max)
-        if int(max_similarity):
-            painter.drawText(-gap-tick-29, 0+4, "%d"%max_similarity)
+        if max_similarity > 0:
+            painter.drawText(-gap-tick-38, 0+4, "%.2f"%max_similarity)
 
         painter.drawLine(-gap,0, -gap-tick,0)
         painter.drawText(-gap-tick-14, y_max+4, "0")
-        painter.drawText(-gap-tick-30, y_max/2+8, "SD")
+        if len(self.y_label) < 4:
+            x_start = -30
+        else:
+            x_start = -60
+        painter.drawText(x_start-gap-tick, y_max/2+8, self.y_label)
 
