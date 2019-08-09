@@ -15,7 +15,6 @@ from browser_file_group_cb import BrowserFileGroupCB
 from browser_threshold_sliders import BrowserThresholdSliders
 #from browser_graph_main_widget import BrowserGraphMainWidget
 from browser_graph_data_reader import read_nodes, read_edges
-from browser_annotation_widget import BrowserAnnotationWidget
 from browser_graph_widget import BrowserGraphWidget
 from browser_file1_window import BrowserFile1Window
 from browser_edge_window import BrowserEdgeWindow
@@ -59,14 +58,14 @@ class BrowserMainWindow(QObject):
         self.browser_threshold_sliders = BrowserThresholdSliders(
                                        self.browser_change_manager)
 
-        # current selection widget
-        self.browser_annotation_widget = BrowserAnnotationWidget(
-                                                 self.browser_change_manager)
+#        # current selection widget
+#        self.browser_annotation_widget = BrowserAnnotationWidget(
+#                                                 self.browser_change_manager)
 
-        # similarity graph widget
-        self.browser_graph_widget = BrowserGraphWidget(
-                        self.all_nodes, self.all_edges, self.all_connections,
-                        self.browser_change_manager)
+#        # similarity graph widget
+#        self.browser_graph_widget = BrowserGraphWidget(
+#                        self.all_nodes, self.all_edges, self.all_connections,
+#                        self.browser_change_manager)
 
         # open file1 window
         self.browser_file1_window = BrowserFile1Window(self.all_nodes,
@@ -79,9 +78,6 @@ class BrowserMainWindow(QObject):
         self.tv_main_window = TVMainWindow(
                             self.browser_change_manager.signal_edge_selected)
 
-#        # zz help get started
-#        self.select_and_open_file1()
-
         # master tv browser window
         self.w = MasterQMainWindow(self.tv_main_window.w)
 
@@ -90,21 +86,29 @@ class BrowserMainWindow(QObject):
         self.w.setWindowTitle("Texture Vector Browser Version %s"%VERSION)
         self.w.setWindowIcon(QIcon(window_icon))
 
-        # the central widget container
-        self.central_widget_container = QWidget()
+        # the similarity graph main widget
+        self.browser_graph_widget = BrowserGraphWidget(
+                        self.all_nodes, self.all_edges, self.all_connections,
+                        self.browser_change_manager)
 
-        # the central widget container's current selection widget
-        self.browser_annotation_widget.text_box.setParent(
-                                          self.central_widget_container)
-        self.browser_annotation_widget.text_box.move(10,10)
+        # the similarity graph
+        self.w.setCentralWidget(self.browser_graph_widget.view)
 
-        # the central widget container's central widget similarity view
-        self.browser_graph_widget.view.setParent(
-                                          self.central_widget_container)
-        self.browser_graph_widget.view.move(10,210)
-
-        # the central widget
-        self.w.setCentralWidget(self.central_widget_container)
+#        # the central widget container
+#        self.central_widget_container = QWidget()
+#
+#        # the central widget container's current selection widget
+#        self.browser_annotation_widget.text_box.setParent(
+#                                          self.central_widget_container)
+#        self.browser_annotation_widget.text_box.move(10,10)
+#
+#        # the central widget container's central widget similarity view
+#        self.browser_graph_widget.view.setParent(
+#                                          self.central_widget_container)
+#        self.browser_graph_widget.view.move(10,210)
+#
+#        # the central widget
+#        self.w.setCentralWidget(self.central_widget_container)
 
         # actions
         self.define_actions()
@@ -211,6 +215,5 @@ class BrowserMainWindow(QObject):
 
             # export the graph as image file
             export_browser_graph(filename,
-                       self.browser_annotation_widget.text_box.toPlainText(),
                        self.browser_graph_widget.scene)
 

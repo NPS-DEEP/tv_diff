@@ -14,11 +14,17 @@ from browser_change_manager import browser_original_scale
 from browser_g_node import BrowserGNode
 from browser_g_edge import BrowserGEdge
 from browser_g_axis import BrowserGAxis
+from browser_g_annotation import BrowserGAnnotation
+from browser_graph_data_reader import NodeRecord, EdgeRecord
+
 
 """BrowserGraphWidget provides the main QGraphicsView.  It manages signals
 and wraps these:
   * BrowserGraphView
   * BrowserGraphScene
+
+max_sd_similarity is the largest SD similarity value in the dataset
+max_ratio_similarity is the largest Max/Sum similarity value in the dataset
 """
 
 # GraphicsView
@@ -30,8 +36,7 @@ class BrowserGraphView(QGraphicsView):
         self.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
         self.setRenderHint(QPainter.Antialiasing)
         self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
-
-        self.setMinimumSize(900, 400)
+        self.setMinimumSize(300, 300)
 
 
 class BrowserGraphScene(QGraphicsScene):
@@ -41,17 +46,27 @@ class BrowserGraphScene(QGraphicsScene):
         self.scale = browser_original_scale
         self.g_nodes = list()
         self.g_edges = list()
-        self.max_similarity = 1
+        self.max_sd_similarity = 1
+        self.max_ratio_similarity = 0.000001 #zzz
 
-    def set_scene(self, g_nodes, g_edges, max_similarity):
+        # annotation
+        self.g_annotation = BrowserGAnnotation()
+        self.addItem(self.g_annotation)
+
+    def set_scene(self, g_nodes, g_edges,
+                  max_sd_similarity, max_ratio_similarity):
 
         self.g_nodes = g_nodes
         self.g_edges = g_edges
-        self.max_similarity = max_similarity
+        self.max_sd_similarity = max_sd_similarity
+        self.max_ratio_similarity = max_ratio_similarity
 
-        # let Python delete previous items instead of QGraphicsScene
+        # use Python to delete previous items instead of QGraphicsScene
         for item in self.items():
             self.removeItem(item)
+
+        # add annotation
+        self.addItem(self.g_annotation)
 
         # add graph node items
         for g_node in g_nodes:
@@ -62,7 +77,7 @@ class BrowserGraphScene(QGraphicsScene):
             self.addItem(g_edge)
 
         # add axis
-        self.g_axis = BrowserGAxis(max_similarity)
+        self.g_axis = BrowserGAxis(max_sd_similarity)
         self.addItem(self.g_axis)
 
         # set scale
@@ -71,7 +86,7 @@ class BrowserGraphScene(QGraphicsScene):
     def set_scale(self, scale):
         self.scale = scale
         for node in self.g_nodes:
-            node.set_position(self.scale, self.max_similarity)
+            node.set_position(self.scale, self.max_sd_similarity)
         for edge in self.g_edges:
             edge.set_position()
         self.g_axis.set_scale(self.scale)
@@ -100,13 +115,18 @@ class BrowserGraphWidget(QObject):
         # connect to schedule repaint on rescale
         change_manager.signal_browser_scale_changed.connect(self.change_scale)
 
+        # connect to change annotation on node or edge hover
+        change_manager.signal_node_hovered.connect(self.change_node_annotation)
+        change_manager.signal_edge_hovered.connect(self.change_edge_annotation)
+
     def _make_g_nodes_g_edges(self, node_record1, in_group,
                               sd_threshold, max_over_sum_threshold):
-        # We track node similarity then calculate node points after we have
-        # max_similarity.  Then we can create correctly located edge points.
+        # We track node similarity then calculate node points.
+        # Then we can create correctly located edge points.
 
         # nodes
-        max_similarity = 0.0
+        max_sd_similarity = 0.0
+        max_ratio_similarity = 0.0
         g_nodes = list()
 
         # node 1
@@ -143,10 +163,11 @@ class BrowserGraphWidget(QObject):
                 continue
 
             # accept node
-            similarity = edge_record.sd
+            sd_similarity = edge_record.sd
             g_nodes.append(BrowserGNode(node_record, False,
-                           similarity, self.change_manager))
-            max_similarity = max(similarity, max_similarity)
+                           sd_similarity, self.change_manager))
+            max_sd_similarity = max(sd_similarity, max_sd_similarity)
+            max_ratio_similarity = max(sd_similarity, max_ratio_similarity)
 
         # edges
         g_edges = list()
@@ -173,19 +194,32 @@ class BrowserGraphWidget(QObject):
                 g_edges.append(BrowserGEdge(edge_record, g_node_a, g_node_b,
                                                   self.change_manager))
 
-        return g_nodes, g_edges, max_similarity
+        return g_nodes, g_edges, max_sd_similarity, max_ratio_similarity
 
     # call this to accept input change
     @pyqtSlot(NodeRecord, bool, float, float)
     def change_inputs(self, node_record1, in_group,
                       sd_threshold, max_over_sum_threshold):
-        g_nodes, g_edges, max_similarity = self._make_g_nodes_g_edges(
+        g_nodes, g_edges, max_sd_similarity, max_ratio_similarity = \
+                      self._make_g_nodes_g_edges(
                                          node_record1, in_group,
                                          sd_threshold, max_over_sum_threshold)
-        self.scene.set_scene(g_nodes, g_edges, max_similarity)
+        self.scene.set_scene(g_nodes, g_edges,
+                             max_sd_similarity, max_ratio_similarity)
+        self.scene.g_annotation.describe_node(node_record1)
 
     # call this to accept browser scale change
     @pyqtSlot(float)
     def change_scale(self, scale):
         self.scene.set_scale(scale)
+
+    @pyqtSlot(NodeRecord)
+    def change_node_annotation(self, node_record):
+        self.scene.g_annotation.describe_node(node_record)
+
+    # call this to set edge, node_a, and node_b text
+    @pyqtSlot(EdgeRecord, NodeRecord, NodeRecord)
+    def change_edge_annotation(self, edge_record, node_record_a, node_record_b):
+        self.scene.g_annotation.describe_edge(edge_record,
+                                        node_record_a, node_record_b)
 

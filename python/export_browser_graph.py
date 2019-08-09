@@ -13,7 +13,7 @@ from version_file import VERSION
 """
 
 # export browser graph as image file.
-def export_browser_graph(graph_filename, annotation, scene):
+def export_browser_graph(graph_filename, scene):
 
     # define the bounding rectangle for pixmap for painter to paint in
     w = int(scene.width()) + 40
@@ -29,13 +29,11 @@ def export_browser_graph(graph_filename, annotation, scene):
     # nor a QStyleOptionGraphicsItem and we don't use it, but we need something.
     option = QStyleOptionViewItem()
 
-    # paint the annotation and the graph
+    # paint the annotation
     painter.translate(20,20)
+    scene.g_annotation.paint(painter, option, None)
 
-    # annotation text
-    text="Texture Vector Browser Version %s\n\n%s"%(VERSION, annotation)
-    painter.drawText(QRectF(0,0,w-40,200), text, QTextOption())
-
+    # paint the graph
     painter.translate(40,200)
 
     # nodes, edges, and axis
