@@ -114,7 +114,7 @@ class TVGAnnotation(QGraphicsItem):
         for line in lines:
             w = max(w,fm.width(line))
         self.w = w
-        self.h = len(lines) * 18
+        self.h = (len(lines)+1) * 12
 
         self.prepareGeometryChange()
 
@@ -142,12 +142,12 @@ class TVGAnnotation(QGraphicsItem):
 
     # draw inside this rectangle
     def boundingRect(self):
-        return QRectF(0, 0, self.w+7, 20+self.h)
+        return QRectF(0, 0, self.w+7, self.h+12)
 
     def paint(self, painter, option, widget):
 
         painter.save()
-        painter.translate(5, 20)
+        painter.translate(5, 12)
         painter.setPen(QPen(Qt.black, 0))
         painter.drawText(self.boundingRect(), self.annotation)
         painter.restore()

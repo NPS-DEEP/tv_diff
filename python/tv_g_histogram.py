@@ -59,7 +59,7 @@ class TVGHistogram(QGraphicsItem):
 
     # draw inside this rectangle
     def boundingRect(self):
-        return QRectF(0, 0, self.w + 100, self.h+40)
+        return QRectF(0, 0, self.w + 200, self.h+60)
 
     def paint(self, painter, option, widget):
         # no action
@@ -114,11 +114,21 @@ class TVGHistogram(QGraphicsItem):
             painter.drawLine(x, h+4, x, h+10)
             painter.drawText(x-4, h+18+10, "%s"%(i-size1))
 
+        # x axis title
+        x=w/2-60
+        y=h+18+10+16
+        painter.drawText(x,y,"Similarity offset")
+
         # y axis annotation
         painter.drawLine(w+4, h, w+8, h)
         painter.drawText(w+2+14, h+4, "0")
         painter.drawLine(w+4, 0, w+8, 0)
         painter.drawText(w+2+14, 4, "%s"%(round(h*scale)))
+
+        # y axis title
+        x=w+8+8
+        y=h/2+10
+        painter.drawText(x,y,"Similarity frequency")
 
         painter.restore()
 

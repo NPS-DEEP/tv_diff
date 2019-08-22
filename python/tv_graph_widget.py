@@ -36,33 +36,35 @@ class TVGraphScene(QGraphicsScene):
 
     def __init__(self):
         super(TVGraphScene, self).__init__()
-        y=0
 
         # general annotation
+        y=0
         self.tv_g_annotation = TVGAnnotation()
         self.addItem(self.tv_g_annotation)
-        self.tv_g_annotation.setPos(QPointF(0,100-18*(6+1))) # height depends
-        y+= 18*(6+1)
+#        self.tv_g_annotation.setPos(QPointF(0,100-18*(6+1))) # height depends
+        self.tv_g_annotation.setPos(QPointF(0,0))
+#        y+= 18*(6+1)
 
         # texture graph 1
+        y+= self.tv_g_annotation.boundingRect().height() + 45
         self.tv_g_texture1 = TVGTexture()
         self.addItem(self.tv_g_texture1)
         self.tv_g_texture1.setPos(QPointF(0,y))
-        y+= 100
 
         # similarity lines
+        y+= 100
         self.tv_g_lines = TVGLines()
         self.addItem(self.tv_g_lines)
         self.tv_g_lines.setPos(QPointF(0,y))
-        y+= 200
 
         # texture graph 2
+        y+= 200
         self.tv_g_texture2 = TVGTexture()
         self.addItem(self.tv_g_texture2)
         self.tv_g_texture2.setPos(QPointF(0,y))
-        y+= 140
 
         # histogram graph
+        y+= 140
         self.tv_g_histogram = TVGHistogram()
         self.addItem(self.tv_g_histogram)
         self.tv_g_histogram.setPos(QPointF(0,y))

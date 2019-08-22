@@ -24,9 +24,9 @@ def export_tv_graph(graph_filename, scene):
     option = QStyleOptionViewItem()
 
     # paint the annotation, texture graphs, and similarity lines
-    painter.translate(20,20)
+    painter.translate(20,12)
     scene.tv_g_annotation.paint(painter, option, None)
-    painter.translate(0,scene.tv_g_annotation.boundingRect().height())
+    painter.translate(0,scene.tv_g_annotation.boundingRect().height()+35)
     scene.tv_g_texture1.paint(painter, option, None)
     painter.translate(0,100)
     scene.tv_g_lines.paint(painter, option, None)
