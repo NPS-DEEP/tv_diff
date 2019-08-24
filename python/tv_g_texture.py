@@ -82,10 +82,12 @@ class TVGTexture(QGraphicsItem):
         step = self.step
 
         # paint texture vector items from left to right
+        colors = self.colors
         for i in range(0, len(data), step): # data length
+            d = data[i]
+            x=i*bar_width
             for j in range(num_elements):
-                painter.setPen(self.colors[data[i][j]])
-                x=i*bar_width
+                painter.setPen(colors[min(255,int(d[j]))])
                 y=j*element_height
                 painter.drawLine(x, y, x, y+element_height)
 
