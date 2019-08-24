@@ -55,8 +55,8 @@ def show_similarity_histogram_data(files, step, settings, slice_index, f):
 
         # get data, allow cache on file1
         if file1 != tv_data1["filename"]:
-            tv_data1 = read_tv_file(file1, settings["names"])
-        tv_data2 = read_tv_file(file2, settings["names"])
+            tv_data1 = read_tv_file(file1)
+        tv_data2 = read_tv_file(file2)
 
         # calculate similarity data
         d = generate_similarity_data(tv_data1, tv_data2, args.step_granularity,

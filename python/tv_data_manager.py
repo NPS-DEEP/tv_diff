@@ -50,7 +50,7 @@ class TVDataManager(QObject):
 
     def _read_tv_file(self, filename):
         try:
-            return read_tv_file(filename, self.settings["names"])
+            return read_tv_file(filename)
 
         except Exception as e:
             show_popup(None, "Error reading .tv file '%s': %s"%(filename, e))

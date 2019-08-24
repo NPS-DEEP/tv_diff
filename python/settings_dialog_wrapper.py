@@ -23,19 +23,13 @@ class SettingsDialogWrapper(QDialog):
         self.old_settings = self.settings_manager.copy()
 
         try:
-            use = self.old_settings["use"]
-            self.ui.use0_cb.setChecked(use[0])
-            self.ui.use1_cb.setChecked(use[1])
-            self.ui.use2_cb.setChecked(use[2])
-            self.ui.use3_cb.setChecked(use[3])
-            self.ui.use4_cb.setChecked(use[4])
-
-            threshold = self.old_settings["threshold"]
-            self.ui.slider0.setValue(threshold[0])
-            self.ui.slider1.setValue(threshold[1])
-            self.ui.slider2.setValue(threshold[2])
-            self.ui.slider3.setValue(threshold[3])
-            self.ui.slider4.setValue(threshold[4])
+            s=self.old_settings
+            self.ui.rejection_slider.setValue(s["rejection_threshold"]*10)
+            self.ui.slider0.setValue(int(s["sd_weight"]*1000))
+            self.ui.slider1.setValue(int(s["mean_weight"]*1000))
+            self.ui.slider2.setValue(int(s["mode_weight"]*1000))
+            self.ui.slider3.setValue(int(s["mode_count_weight"]*1000))
+            self.ui.slider4.setValue(int(s["entropy_weight"]*1000))
         except KeyError as e:
             show_popup(None, "Error restoring settings: %s" % str(e))
 
@@ -53,12 +47,8 @@ class SettingsDialogWrapper(QDialog):
         self.ui.save_pb.clicked.connect(self.save_pb_clicked)
 
         # connect
-        self.ui.use0_cb.toggled.connect(self.use0_toggled)
-        self.ui.use1_cb.toggled.connect(self.use1_toggled)
-        self.ui.use2_cb.toggled.connect(self.use2_toggled)
-        self.ui.use3_cb.toggled.connect(self.use3_toggled)
-        self.ui.use4_cb.toggled.connect(self.use4_toggled)
-
+        self.ui.rejection_slider.sliderMoved.connect(
+                                            self.rejection_slider_moved)
         self.ui.slider0.sliderMoved.connect(self.slider0_moved)
         self.ui.slider1.sliderMoved.connect(self.slider1_moved)
         self.ui.slider2.sliderMoved.connect(self.slider2_moved)
@@ -132,45 +122,28 @@ class SettingsDialogWrapper(QDialog):
             # save settings to file
             self.settings_manager.save_to(settings_filename)
 
-    # use vector or not
-    @pyqtSlot(bool)
-    def use0_toggled(self, value):
-        self.settings_manager.change("use", 0, value)
-
-    @pyqtSlot(bool)
-    def use1_toggled(self, value):
-        self.settings_manager.change("use", 1, value)
-
-    @pyqtSlot(bool)
-    def use2_toggled(self, value):
-        self.settings_manager.change("use", 2, value)
-
-    @pyqtSlot(bool)
-    def use3_toggled(self, value):
-        self.settings_manager.change("use", 3, value)
-
-    @pyqtSlot(bool)
-    def use4_toggled(self, value):
-        self.settings_manager.change("use", 4, value)
-
     # slider
     @pyqtSlot(int)
+    def rejection_slider_moved(self, value):
+        self.settings_manager.change("rejection_threshold", value/10)
+
+    @pyqtSlot(int)
     def slider0_moved(self, value):
-        self.settings_manager.change("threshold", 0, value)
+        self.settings_manager.change("sd_weight", value/1000)
 
     @pyqtSlot(int)
     def slider1_moved(self, value):
-        self.settings_manager.change("threshold", 1, value)
+        self.settings_manager.change("mean_weight", value/1000)
 
     @pyqtSlot(int)
     def slider2_moved(self, value):
-        self.settings_manager.change("threshold", 2, value)
+        self.settings_manager.change("mode_weight", value/1000)
 
     @pyqtSlot(int)
     def slider3_moved(self, value):
-        self.settings_manager.change("threshold", 3, value)
+        self.settings_manager.change("mode_count_weight", value/1000)
 
     @pyqtSlot(int)
     def slider4_moved(self, value):
-        self.settings_manager.change("threshold", 4, value)
+        self.settings_manager.change("entropy_weight", value/1000)
 

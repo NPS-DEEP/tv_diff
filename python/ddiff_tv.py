@@ -28,8 +28,8 @@ if __name__=="__main__":
     print(settings)
 
     # file pair
-    tv_data1 = read_tv_file(args.file1, settings["names"])
-    tv_data2 = read_tv_file(args.file2, settings["names"])
+    tv_data1 = read_tv_file(args.file1)
+    tv_data2 = read_tv_file(args.file2)
 
     # file information
     print("File 1: %s  %s"%(tv_data1["md5"], tv_data1["filename"]))

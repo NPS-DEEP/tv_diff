@@ -1,6 +1,5 @@
 from collections import defaultdict
 from math import ceil, floor
-from settings_store import texture_compatible
 import statistics
 
 """
@@ -84,12 +83,8 @@ def generate_similarity_data(tv_data1, tv_data2, step,
     if not tv_data1 or not tv_data2:
         # no data
         return empty_similarity_data()
-    if not texture_compatible(settings["names"], tv_data1["texture_names"]):
-        raise Exception("Incompatible tv data in file 1")
-    if not texture_compatible(settings["names"], tv_data2["texture_names"]):
-        raise Exception("Incompatible tv data in file 2")
     if not tv_data1["section_size"] == tv_data2["section_size"]:
-        raise Exception("Incompatible tv data: secton size mismatch.")
+        raise Exception("Incompatible tv data: section size mismatch.")
     if step < 1:
         raise Exception("Bad")
 
@@ -103,25 +98,18 @@ def generate_similarity_data(tv_data1, tv_data2, step,
     similarity_histogram = [0]*num_buckets
 
     # optimization
-    use = settings["use"]
+    rejection_threshold = settings["rejection_threshold"]
+    w0 = settings["sd_weight"]
+    w1 = settings["mean_weight"]
+    w2 = settings["mode_weight"]
+    w3 = settings["mode_count_weight"]
+    w4 = settings["entropy_weight"]
 
-    use0 = use[0]
-    use1 = use[1]
-    use2 = use[2]
-    use3 = use[3]
-    use4 = use[4]
-
-    threshold = settings["threshold"]
-    t0 = threshold[0]
-    t1 = threshold[1]
-    t2 = threshold[2]
-    t3 = threshold[3]
-    t4 = threshold[4]
 
     data1 = tv_data1["texture_vectors"]
     data2 = tv_data2["texture_vectors"]
 
-    if not(use0 or use1 or use2 or use3 or use4):
+    if w0+w1+w2+w3+w4 == 0.0:
         return empty_similarity_data()
 
     # histogram numbers
@@ -131,16 +119,16 @@ def generate_similarity_data(tv_data1, tv_data2, step,
 
     # find similarity lines
     for i in range(0, len(data1), step):
+        v1_0,v1_1,v1_2,v1_3,v1_4 = data1[i] # optimizaton
         for j in range(0, len(data2), step):
-            if use0 and abs(data1[i][0] - data2[j][0]) > t0:
-                continue
-            if use1 and abs(data1[i][1] - data2[j][1]) > t1:
-                continue
-            if use2 and abs(data1[i][2] - data2[j][2]) > t2:
-                continue
-            if use3 and abs(data1[i][3] - data2[j][3]) > t3:
-                continue
-            if use4 and abs(data1[i][4] - data2[j][4]) > t4:
+            v2_0,v2_1,v2_2,v2_3,v2_4 = data2[j]
+            v = w0*((v1_0-v2_0)**2) \
+              + w1*((v1_1-v2_1)**2) \
+              + w2*(int(v1_2==v2_2)*100) \
+              + w3*((v1_3-v2_3)**2) \
+              + w4*((v1_4-v2_4)**2) \
+
+            if v > rejection_threshold:
                 continue
 
             # maybe add point to similarity lines

@@ -29,15 +29,13 @@ from PyQt5.QtCore import QObject # for signal/slot support
 from PyQt5.QtCore import pyqtSignal, pyqtSlot # for signal/slot support
 from PyQt5.QtCore import Qt
 from show_popup import show_popup
-from settings_store import default_settings_file, texture_compatible
+from settings_store import default_settings_file
 
 # default
-_names = ["sd", "mean", "mode", "mode_count", "entropy"]
-#_use = [True, True, True, True, True]
-#_threshold = [50, 50, 50, 50, 50]
-_use = [True, True, False, True, True]
-_threshold = [4, 5, 0, 7, 6]
-default_settings={"names":_names, "use":_use, "threshold":_threshold}
+default_settings = {"rejection_threshold":50,
+                    "sd_weight":0.5, "mean_weight":0.5, "mode_weight":0.0,
+                    "mode_count_weight":0.5, "entropy_weight":0.5}
+
 settings = deepcopy(default_settings)
 
 # SettingsManager provides services to manage the global settings variable
@@ -61,9 +59,9 @@ class SettingsManager(QObject):
         return deepcopy(settings)
 
     # change provided settings
-    def change(self, case, index, value):
+    def change(self, name, value):
         global settings
-        settings[case][index] = value
+        settings[name] = value
 
         # signal change
         self.signal_settings_changed.emit(settings)
@@ -73,10 +71,8 @@ class SettingsManager(QObject):
 
     def change_all(self, new_settings):
         global settings
-        new_settings = deepcopy(new_settings)
-        settings.clear()
-        for key, value in new_settings.items():
-            settings[key] = value
+        for name,value in new_settings.items():
+            settings[name]=value
 
         # signal change
         self.signal_settings_changed.emit(settings)
@@ -100,15 +96,15 @@ class SettingsManager(QObject):
         try:
             with open(filename) as f:
                 new_settings = json.load(f)
-                if texture_compatible(default_settings["names"],
-                                      new_settings["names"]):
-                    self.change_all(new_settings)
-                else:
+                if settings.keys() != new_settings.keys():
                     raise Exception("Incompatible settings file.")
+                settings = deepcopy(new_settings)
 
         except Exception as e:
-            show_popup(None, "Error reading settings file: %s\n"
-                             "Default settings will be used." % str(e))
+            if filename == default_settings_file:
+                self._save()
+            else:
+                show_popup(None, "Error reading settings file: %s"%str(e))
 
     def _load(self):
         self.load_from(default_settings_file)

@@ -1,5 +1,6 @@
 from os.path import join, expanduser
 import json
+from calc_tv import texture_names
 
 # default path
 default_settings_file = join(expanduser("~"), ".tv_threshold_settings")
@@ -11,11 +12,11 @@ def read_settings(settings_file):
         return settings
 
 # compatibile if name sets match
-def texture_compatible(names1, names2):
+def texture_compatible(names):
     try:
-        if len(names1) != len(names2):
+        if len(names) != len(texture_names):
             return False
-        for name1, name2 in zip(names1, names2):
+        for name1, name2 in zip(names, texture_names):
             if name1 != name2:
                 return False
         return True

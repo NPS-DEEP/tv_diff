@@ -11,7 +11,6 @@ from PyQt5.QtWidgets import (QGraphicsItem, QGraphicsView, QStyle)
 from PyQt5.QtWidgets import QGraphicsSceneContextMenuEvent
 from version_file import VERSION
 from settings_manager import settings
-from settings_store import texture_compatible
 from tv_time import t_string
 
 def _file_metadata(filenum, tv_data):
@@ -39,26 +38,6 @@ class TVGAnnotation(QGraphicsItem):
 
         self._prepare()
 
-    def _texture_thresholds(self):
-
-        # make sure the texture names match
-        if self.tv_data1 and not texture_compatible(settings["names"],
-                                     self.tv_data1["texture_names"]):
-            return "Texture fields do not match"
-        if self.tv_data2 and not texture_compatible(settings["names"],
-                                     self.tv_data2["texture_names"]):
-            return "Texture fields do not match"
-
-        # return texture
-        text = "Acceptance thresholds:"
-        for i in range(len(settings["names"])):
-            if settings["use"][i]:
-                text += "  %s: %d"%(settings["names"][i],
-                                    settings["threshold"][i])
-            else:
-                text += "  %s: not used"%settings["names"][i]
-        return text
-
     # calculate texts and width
     def _prepare(self):
 
@@ -76,8 +55,14 @@ class TVGAnnotation(QGraphicsItem):
 
         # thresholds and number of buckets
         if self.tv_data1 and self.tv_data2:
-            text2 = self._texture_thresholds()
-            text2 = "%s  Buckets: %d"%(text2,
+            text2 = "sd wt: %.3f  mean wt: %.3f  " \
+                    "mode wt: %.3f  mode count wt: %.3f  " \
+                    "entropy wt: %.3f  " \
+                    "rejection threshold: %.3f  buckets: %d"%(
+                    settings["sd_weight"], settings["mean_weight"],
+                    settings["mode_weight"], settings["mode_count_weight"], 
+                    settings["entropy_weight"],
+                    settings["rejection_threshold"],
                     len(self.similarity_data["similarity_histogram"]))
         else:
             text2 = ""
@@ -85,9 +70,13 @@ class TVGAnnotation(QGraphicsItem):
         # similarity
         if self.tv_data1 and self.tv_data2:
             d=self.similarity_data
+            if d["sum"] > 0:
+                max_over_sum = d["max"]/d["sum"]
+            else:
+                max_over_sum = 0
             text3 = "Compensated statistics: " \
                     "SD: %.4f, Mean: %.4f, Max: %d, Sum: %d, Max/Sum: %.4f"%(
-               d["sd"], d["mean"], d["max"], d["sum"], d["max"]/d["sum"])
+               d["sd"], d["mean"], d["max"], d["sum"], max_over_sum)
         else:
             text3 = ""
 
