@@ -1,5 +1,6 @@
 from collections import defaultdict
 from math import ceil, floor
+from scipy.spatial.distance import euclidean
 import statistics
 
 """
@@ -104,13 +105,13 @@ def generate_similarity_data(tv_data1, tv_data2, step,
     w2 = settings["mode_weight"]
     w3 = settings["mode_count_weight"]
     w4 = settings["entropy_weight"]
+    w=[w0, w1, w2, w3, w4]
 
+    if sum(w) == 0.0:
+        return empty_similarity_data()
 
     data1 = tv_data1["texture_vectors"]
     data2 = tv_data2["texture_vectors"]
-
-    if w0+w1+w2+w3+w4 == 0.0:
-        return empty_similarity_data()
 
     # histogram numbers
     file_size1 = tv_data1["file_size"]
@@ -119,16 +120,11 @@ def generate_similarity_data(tv_data1, tv_data2, step,
 
     # find similarity lines
     for i in range(0, len(data1), step):
-        v1_0,v1_1,v1_2,v1_3,v1_4 = data1[i] # optimizaton
+        v1 = data1[i]
         for j in range(0, len(data2), step):
-            v2_0,v2_1,v2_2,v2_3,v2_4 = data2[j]
-            v = w0*((v1_0-v2_0)**2) \
-              + w1*((v1_1-v2_1)**2) \
-              + w2*(int(v1_2==v2_2)*100) \
-              + w3*((v1_3-v2_3)**2) \
-              + w4*((v1_4-v2_4)**2) \
-
-            if v > rejection_threshold:
+            v2 = data2[j]
+            d=euclidean(v1,v2,w)
+            if d > rejection_threshold:
                 continue
 
             # maybe add point to similarity lines

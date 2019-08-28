@@ -4,8 +4,8 @@ import json
 from os.path import expanduser, exists
 from argparse import ArgumentParser
 
-
-from ddiff_tv import read_settings, read_tv_file
+from settings_store import read_settings
+from read_tv_file import read_tv_file
 from similarity_math import generate_similarity_data
 
 def _total_combinations(files):
