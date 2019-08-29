@@ -24,7 +24,7 @@ class SettingsDialogWrapper(QDialog):
 
         try:
             s=self.old_settings
-            self.ui.rejection_slider.setValue(s["rejection_threshold"]*10)
+            self.ui.rejection_slider.setValue(s["rejection_threshold"]*100)
             self.ui.slider0.setValue(int(s["sd_weight"]*1000))
             self.ui.slider1.setValue(int(s["mean_weight"]*1000))
             self.ui.slider2.setValue(int(s["mode_weight"]*1000))
@@ -125,7 +125,7 @@ class SettingsDialogWrapper(QDialog):
     # slider
     @pyqtSlot(int)
     def rejection_slider_moved(self, value):
-        self.settings_manager.change("rejection_threshold", value/10)
+        self.settings_manager.change("rejection_threshold", value/100)
 
     @pyqtSlot(int)
     def slider0_moved(self, value):
