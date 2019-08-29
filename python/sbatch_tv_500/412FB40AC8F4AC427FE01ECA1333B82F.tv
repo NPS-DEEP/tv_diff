@@ -1,0 +1,25 @@
+{
+    "version": "1.0.0",
+    "filename": "/smallwork/bdallen/executable_files/cdfview_dll/SG001-7022_WINDOWS_system32_dllcache_cdfview.dll.tmp",
+    "file_group": "cdfview_dll",
+    "file_size": 328,
+    "file_modtime": 1175026359,
+    "md5": "412FB40AC8F4AC427FE01ECA1333B82F",
+    "section_size": 500,
+    "texture_names": [
+        "sd",
+        "mean",
+        "mode",
+        "mode_count",
+        "entropy"
+    ],
+    "texture_vectors": [
+        [
+            106.45962891042495,
+            30.695121951219512,
+            0,
+            90.624,
+            96.0
+        ]
+    ]
+}

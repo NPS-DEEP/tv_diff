@@ -1,0 +1,25 @@
+{
+    "version": "1.0.0",
+    "filename": "/smallwork/bdallen/executable_files/webclnt_dll/SG1-1064_WINDOWS_system32_dllcache_webclnt.dll.tmp",
+    "file_group": "webclnt_dll",
+    "file_size": 212,
+    "file_modtime": 1089957609,
+    "md5": "DA9144644FD1C75B7A33FCB1DB258BB8",
+    "section_size": 500,
+    "texture_names": [
+        "sd",
+        "mean",
+        "mode",
+        "mode_count",
+        "entropy"
+    ],
+    "texture_vectors": [
+        [
+            168.48274057975345,
+            101.50471698113208,
+            0,
+            18.432000000000002,
+            184.0
+        ]
+    ]
+}

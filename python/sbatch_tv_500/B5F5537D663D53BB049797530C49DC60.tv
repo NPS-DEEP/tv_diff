@@ -1,0 +1,32 @@
+{
+    "version": "1.0.0",
+    "filename": "/smallwork/bdallen/executable_files/wmplayer_exe/PS01-023_WINDOWS_system32_dllcache_wmplayer.exe.tmp",
+    "file_group": "wmplayer_exe",
+    "file_size": 794,
+    "file_modtime": 1149745076,
+    "md5": "B5F5537D663D53BB049797530C49DC60",
+    "section_size": 500,
+    "texture_names": [
+        "sd",
+        "mean",
+        "mode",
+        "mode_count",
+        "entropy"
+    ],
+    "texture_vectors": [
+        [
+            134.3874348888318,
+            55.844,
+            0,
+            108.544,
+            136.0
+        ],
+        [
+            129.87597895948798,
+            72.12925170068027,
+            0,
+            47.616,
+            144.0
+        ]
+    ]
+}

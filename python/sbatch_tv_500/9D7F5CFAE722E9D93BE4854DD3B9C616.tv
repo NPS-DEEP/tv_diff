@@ -1,0 +1,25 @@
+{
+    "version": "1.0.0",
+    "filename": "/smallwork/bdallen/executable_files/mobsync_exe/IL004-0010_WINDOWS_system32_dllcache_mobsync.exe.tmp",
+    "file_group": "mobsync_exe",
+    "file_size": 352,
+    "file_modtime": 1131472182,
+    "md5": "9D7F5CFAE722E9D93BE4854DD3B9C616",
+    "section_size": 500,
+    "texture_names": [
+        "sd",
+        "mean",
+        "mode",
+        "mode_count",
+        "entropy"
+    ],
+    "texture_vectors": [
+        [
+            59.688775082654935,
+            86.50568181818181,
+            97,
+            19.456,
+            143.0
+        ]
+    ]
+}

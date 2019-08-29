@@ -1,0 +1,25 @@
+{
+    "version": "1.0.0",
+    "filename": "/smallwork/bdallen/executable_files/pacman_exe/IN10-0014_GAMESCD_Miniclip_PACMAN.EXE.tmp",
+    "file_group": "pacman_exe",
+    "file_size": 326,
+    "file_modtime": 895309260,
+    "md5": "76F515775DE7F011A10DD2E2BA853303",
+    "section_size": 500,
+    "texture_names": [
+        "sd",
+        "mean",
+        "mode",
+        "mode_count",
+        "entropy"
+    ],
+    "texture_vectors": [
+        [
+            229.6611630258832,
+            94.59815950920246,
+            0,
+            71.168,
+            93.0
+        ]
+    ]
+}
