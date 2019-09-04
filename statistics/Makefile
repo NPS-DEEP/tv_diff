@@ -1,19 +1,19 @@
 graphs = \
 	node_hist_by_time.pdf node_hist_by_size.pdf \
 	edge_hist_sim_by_sd.pdf edge_hist_sim_by_ratio.pdf
-tables = node_family_table.table
+texs = node_family_table.tex
 
 .SUFFIXES: .py .pdf
-.SUFFIXES: .py .table
+.SUFFIXES: .py .tex
 
 .py.pdf:
 	./$<
 
-.py.table:
+.py.tex:
 	./$<
 
-all: $(graphs) $(tables)
+all: $(graphs) $(texs)
 
 clean:
-	rm -f *.pdf *.png *.table
+	rm -f *.pdf *.png *.tex
 

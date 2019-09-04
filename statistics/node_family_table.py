@@ -34,7 +34,7 @@ for group, sizes in files.items():
     means[group] = statistics.mean(sizes)
     sds[group] = statistics.stdev(sizes)
 
-with open("node_family_table.table", "w") as f:
+with open("node_family_table.tex", "w") as f:
 
     for group in sorted(files.keys()):
         # group, num_files, min size, max size, mean, SD
