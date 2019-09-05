@@ -1,7 +1,10 @@
 graphs = \
 	node_hist_by_time.pdf node_hist_by_size.pdf \
 	edge_hist_sim_by_sd.pdf edge_hist_sim_by_ratio.pdf
-texs = node_family_table.tex
+texs = \
+	node_family_table.tex \
+	edge_family_table_sd.tex edge_family_table_ratio.tex \
+	edge_cross_family_table_sd.tex
 
 .SUFFIXES: .py .pdf
 .SUFFIXES: .py .tex

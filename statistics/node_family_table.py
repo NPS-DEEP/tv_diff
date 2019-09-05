@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 # https://stackoverflow.com/questions/47850202/plotting-a-histogram-on-a-log-scale-with-matplotlib?rq=1
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 import statistics
 import csv
-from graph_paths import nodefile
 from collections import defaultdict
+from graph_paths import nodefile
 
 files = defaultdict(list)
 
