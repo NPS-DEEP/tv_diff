@@ -4,7 +4,7 @@ graphs = \
 texs = \
 	node_family_table.tex \
 	edge_family_table_sd.tex edge_family_table_ratio.tex \
-	edge_cross_family_table_sd.tex
+	edge_cross_family_table_sd.tex edge_cross_family_table_ratio.tex
 
 .SUFFIXES: .py .pdf
 .SUFFIXES: .py .tex

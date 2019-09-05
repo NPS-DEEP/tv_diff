@@ -36,9 +36,9 @@ with open(edgefile) as f:
         name2=nodes[int(row[1])]
 #        if name1<name2:
 #            name1,name2=name2,name1
-        sd=float(row[2])
-        edges[name1,name2].append(sd)
-        edges[name2,name1].append(sd)
+        ratio=float(row[4])/float(row[5])
+        edges[name1,name2].append(ratio)
+        edges[name2,name1].append(ratio)
 
 # get groups
 g = set()
@@ -48,7 +48,7 @@ groups = sorted(g)
 if len(groups) != 24:
    raise RuntimeError("bad")
 
-with open("edge_cross_family_table_sd.tex", "w") as f:
+with open("edge_cross_family_table_ratio.tex", "w") as f:
     # left half
     print("\\textbf{Family} & \\textbf{n} "
           "& \\textbf{1} & \\textbf{2} & \\textbf{3} & \\textbf{4} "
@@ -59,7 +59,7 @@ with open("edge_cross_family_table_sd.tex", "w") as f:
         l="%s&%d"%(groups[i],i+1)
         for j in range(12):
             if edges[groups[i],groups[j]]:
-                l += "&%.1f"%statistics.mean(edges[groups[i],groups[j]])
+                l += "&%.3f"%statistics.mean(edges[groups[i],groups[j]])
             else:
                 l += "&-"
         l += "\\\\"
@@ -77,7 +77,7 @@ with open("edge_cross_family_table_sd.tex", "w") as f:
         l="%s&%d"%(groups[i],i+1)
         for j in range(12,24):
             if edges[groups[i],groups[j]]:
-                l += "&%.1f"%statistics.mean(edges[groups[i],groups[j]])
+                l += "&%.3f"%statistics.mean(edges[groups[i],groups[j]])
             else:
                 l += "&-"
         l += "\\\\"
