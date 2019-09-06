@@ -78,9 +78,12 @@ class BrowserGAxis(QGraphicsItem):
 
         painter.drawLine(-gap,0, -gap-tick,0)
         painter.drawText(-gap-tick-14, y_max+4, "0")
-        if len(self.y_label) < 4:
-            x_start = -30
-        else:
-            x_start = -60
-        painter.drawText(x_start-gap-tick, y_max/2+8, self.y_label)
+
+        painter.save()
+        painter.translate(-20, y_max/2+30)
+        if len(self.y_label) > 10:
+            painter.translate(0,30) # more
+        painter.rotate(-90)
+        painter.drawText(0, 0, self.y_label)
+        painter.restore()
 

@@ -24,7 +24,7 @@ class BrowserThresholdSliders(QWidget):
         self.sd_slider.setRange(0.0, x)
         self.sd_slider.setMinimumSize(x,4)
         self.sd_slider.setValue(int(20*(change_manager.sd_threshold)**(1/3)))
-        self.sd_slider.setToolTip("SD threshold")
+        self.sd_slider.setToolTip("Standard Deviation threshold")
         self.sd_slider.setOrientation(Qt.Horizontal)
         self.sd_slider.setSizePolicy(QSizePolicy.Maximum,
                                          QSizePolicy.Maximum)
@@ -32,7 +32,7 @@ class BrowserThresholdSliders(QWidget):
 
         # SD threshold_label
         self.sd_threshold_label = QLabel("SD %.3f"%change_manager.sd_threshold)
-        self.sd_threshold_label.setToolTip("SD threshold")
+        self.sd_threshold_label.setToolTip("Standard Deviation threshold")
 
         # max_over_sum slider
         self.max_over_sum_slider = QSlider()
