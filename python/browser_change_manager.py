@@ -19,7 +19,7 @@ class BrowserChangeManager(QObject):
     signal_node_hovered = pyqtSignal(NodeRecord, name='nodeHovered')
     signal_edge_hovered = pyqtSignal(EdgeRecord, NodeRecord, NodeRecord,
                                                           name='edgeHovered')
-    signal_edge_selected = pyqtSignal(str, str, name='edgeSelected')
+    signal_want_tv_window = pyqtSignal(str, str, name='wantTVWindow')
     signal_browser_scale_changed = pyqtSignal(float, name='BrowserScaleChanged')
 
     def __init__(self, node_record1, in_group,
@@ -44,6 +44,10 @@ class BrowserChangeManager(QObject):
     def change_node_record1(self, node_record1):
         self.node_record1 = node_record1
         self._emit()
+
+        # also open TV GUI to show this node
+        tv_filename = browser_tv_filename(node_record1.file_md5)
+        self.signal_want_tv_window.emit(tv_filename, None)
 
     # called from SD slider change
     @pyqtSlot(float)
@@ -71,7 +75,7 @@ class BrowserChangeManager(QObject):
 
         tv_filename1 = browser_tv_filename(node_record_a.file_md5)
         tv_filename2 = browser_tv_filename(node_record_b.file_md5)
-        self.signal_edge_selected.emit(tv_filename1, tv_filename2)
+        self.signal_want_tv_window.emit(tv_filename1, tv_filename2)
 
     # scale
     def scale_in(self):

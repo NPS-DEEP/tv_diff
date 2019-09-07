@@ -55,7 +55,7 @@ class BrowserGraphScene(QGraphicsScene):
         self.g_ratio_axis = BrowserGAxis("Max/Sum")
 
     def set_scene(self, g_sd_nodes, g_sd_edges, g_ratio_nodes, g_ratio_edges,
-                  max_sd_similarity, max_ratio_similarity):
+                  max_sd_similarity, max_ratio_similarity, node1_index):
 
         self.g_sd_nodes = g_sd_nodes
         self.g_sd_edges = g_sd_edges
@@ -63,6 +63,7 @@ class BrowserGraphScene(QGraphicsScene):
         self.g_ratio_edges = g_ratio_edges
         self.max_sd_similarity = max_sd_similarity
         self.max_ratio_similarity = max_ratio_similarity
+        self.node1_index = node1_index
 
         # use Python to remove previous items instead of QGraphicsScene
         for item in self.items():
@@ -97,7 +98,8 @@ class BrowserGraphScene(QGraphicsScene):
             node.set_position(dy, self.scale, self.max_sd_similarity)
         for edge in self.g_sd_edges:
             edge.set_position()
-        self.g_sd_axis.set_position(dy, self.scale, self.max_sd_similarity)
+        self.g_sd_axis.set_position(dy, self.scale, self.max_sd_similarity,
+                                    self.node1_index)
 
         # ratio nodes, edgs, axis
         dy += int(self.g_sd_axis.boundingRect().height()) + 50
@@ -106,7 +108,8 @@ class BrowserGraphScene(QGraphicsScene):
         for edge in self.g_ratio_edges:
             edge.set_position()
         self.g_ratio_axis.set_position(dy,
-                                      self.scale, self.max_ratio_similarity)
+                                      self.scale, self.max_ratio_similarity,
+                                      self.node1_index)
 
         # reset scene bounding rectangle
         self.setSceneRect(self.itemsBoundingRect())
@@ -235,8 +238,15 @@ class BrowserGraphWidget(QObject):
                                          sd_threshold, ratio_threshold)
         self.scene.set_scene(g_sd_nodes, g_sd_edges,
                              g_ratio_nodes, g_ratio_edges,
-                             max_sd_similarity, max_ratio_similarity)
+                             max_sd_similarity, max_ratio_similarity,
+                             node_record1.index)
+        self.scene.g_annotation.describe_inputs(
+                             in_group, sd_threshold, ratio_threshold,
+                             node_record1.index)
         self.scene.g_annotation.describe_node(node_record1)
+
+#        # reset scene bounding rectangle
+#        self.scene.setSceneRect(self.scene.itemsBoundingRect())
 
     # call this to accept browser scale change
     @pyqtSlot(float)

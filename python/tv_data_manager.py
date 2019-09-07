@@ -78,8 +78,14 @@ class TVDataManager(QObject):
         self._reset_data()
 
     def set_tv_data_pair(self, tv_filename1, tv_filename2):
-        self.tv_data1 = self._read_tv_file(tv_filename1)
-        self.tv_data2 = self._read_tv_file(tv_filename2)
+        if tv_filename1:
+            self.tv_data1 = self._read_tv_file(tv_filename1)
+        else:
+            self.tv_data1 = dict()
+        if tv_filename2:
+            self.tv_data2 = self._read_tv_file(tv_filename2)
+        else:
+            self.tv_data2 = dict()
         self._reset_data()
 
     # hardcoded interpretation of sketch quantity

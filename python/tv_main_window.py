@@ -29,13 +29,12 @@ class TVMainWindow(QObject):
         self.tv_data_manager.set_tv_data_pair(tv_filename1, tv_filename2)
         self.w.show()
 
-    def __init__(self, signal_edge_selected=None):
+    def __init__(self, signal_want_tv_window=None):
         super(TVMainWindow, self).__init__()
 
         # use this when embedded in tv_browser
-        if signal_edge_selected:
-            signal_edge_selected.connect(self.show_window)
-
+        if signal_want_tv_window:
+            signal_want_tv_window.connect(self.show_window)
 
         # user's preferred TV file path
         self.preferred_tv_dir = os.path.expanduser("~")

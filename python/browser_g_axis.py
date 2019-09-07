@@ -34,9 +34,10 @@ class BrowserGAxis(QGraphicsItem):
         self.scale = 1
         self.max_similarity = 0
 
-    def set_position(self, dy, scale, max_similarity):
+    def set_position(self, dy, scale, max_similarity, node1_index):
         self.scale = scale
         self.max_similarity = max_similarity
+        self.node1_index = node1_index
         self.setPos(0,dy)
 
         self.bounding_rect = QRectF(-80,-10,
@@ -80,10 +81,10 @@ class BrowserGAxis(QGraphicsItem):
         painter.drawText(-gap-tick-14, y_max+4, "0")
 
         painter.save()
-        painter.translate(-20, y_max/2+30)
-        if len(self.y_label) > 10:
-            painter.translate(0,30) # more
+        painter.translate(-32, y_max/2)
         painter.rotate(-90)
-        painter.drawText(0, 0, self.y_label)
+        y_label="Edge %s\nwith respect to Node %d"%(
+                                          self.y_label, self.node1_index)
+        painter.drawText(self.boundingRect(), y_label)
         painter.restore()
 

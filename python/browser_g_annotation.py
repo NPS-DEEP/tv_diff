@@ -22,8 +22,20 @@ class BrowserGAnnotation(QGraphicsItem):
         self.annotation = "Click Node to open a .tv file."
         self._prepare()
 
+    def describe_inputs(self, in_group, max_sd_similarity, max_ratio_similarity,
+                                                              node1_index):
+        if in_group:
+            in_group_text = "Stay in group, "
+        else:
+            in_group_text = "All groups, "
+        self.inputs_text="Similarity to node %d: %s" \
+                         "Standard Deviation similarity > %.3f, " \
+                         "Max/Sum similarity > %.6f"%(
+                         node1_index, in_group_text,
+                         max_sd_similarity, max_ratio_similarity)
+
     def describe_node(self, node_record):
-        self.annotation = node_record.text()
+        self.annotation = "%s\n\n%s"%(self.inputs_text, node_record.text())
         self._prepare()
 
     def describe_edge(self, edge_record, node_record_a, node_record_b):
@@ -32,9 +44,10 @@ class BrowserGAnnotation(QGraphicsItem):
         if edge_record.index1 == node_record_b.index:
             node_record_a,node_record_b = node_record_b,node_record_a
 
-        self.annotation = "%s\n\n%s\n\n%s"%(edge_record.text(),
-                                            node_record_a.text(),
-                                            node_record_b.text())
+        self.annotation = "%s\n\n%s\n\n%s\n\n%s"%(self.inputs_text,
+                                                  edge_record.text(),
+                                                  node_record_a.text(),
+                                                  node_record_b.text())
         self._prepare()
 
     # calculate texts and width
@@ -47,7 +60,7 @@ class BrowserGAnnotation(QGraphicsItem):
         for line in lines:
             w = max(w,fm.width(line))
         self.w = w
-        self.h = 7 * 18
+        self.h = 9 * 18
 
         self.prepareGeometryChange()
 
@@ -59,8 +72,6 @@ class BrowserGAnnotation(QGraphicsItem):
         return QRectF(0, 0, self.w+7, 20+self.h)
 
     def paint(self, painter, option, widget):
-
-        print("browser_g_annotation.paint: %s"%self.annotation)
         painter.save()
         painter.translate(5, 20)
         painter.setPen(QPen(Qt.black, 0))
