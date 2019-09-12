@@ -6,7 +6,6 @@ import sys, os, hashlib
 from argparse import ArgumentParser
 import numpy as np
 import json
-#from scipy import stats
 from math import e, log
 from version_file import VERSION
 
@@ -14,7 +13,8 @@ texture_names=("sd","mean","mode","mode_count","entropy")
 
 # use _entropy2 instead
 def _shannon2_entropy(b):
-    # https://stackoverflow.com/questions/42683287/python-numpy-shannon-entropy-array?rq=1
+    # https://stackoverflow.com/questions/42683287/python-numpy-shannon-
+    # entropy-array?rq=1
     b_sum = b.sum()
     if b_sum == 0:
         return 0
@@ -23,7 +23,8 @@ def _shannon2_entropy(b):
     shannon2=-np.sum(p*np.log2(p))
     return shannon2.item()
 
-# from https://stackoverflow.com/questions/15450192/fastest-way-to-compute-entropy-in-python approach 2
+# from https://stackoverflow.com/questions/15450192/fastest-way-to-compu
+# te-entropy-in-python approach 2
 def _entropy2(labels, base=None):
   """ Computes entropy of label distribution. """
 
@@ -51,13 +52,14 @@ def _entropy2(labels, base=None):
 
 def _texture_vector(b, section_size):
     # try to normalize for 0 to 255 values
-    sd = np.std(b).item() * 2                               # standard deviation
-    mean = np.mean(b).item()                                # mean
-    #https://stackoverflow.com/questions/6252280/find-the-most-frequent-number-in-a-numpy-vector
-    mode = np.argmax(np.bincount(b)).item()                 # mode
+    sd = np.std(b).item() * 2                       # standard deviation
+    mean = np.mean(b).item()                        # mean
+    # https://stackoverflow.com/questions/6252280/find-the-most-frequent
+    #-number-in-a-numpy-vector
+    mode = np.argmax(np.bincount(b)).item()         # mode
     mode_count = list(b).count(mode) * (256.0/section_size) # mode_count
-#    entropy = _shannon2_entropy(b)                           # entropy
-    entropy = round(_entropy2(b)*43)                          # entropy
+#    entropy = _shannon2_entropy(b)                   # entropy
+    entropy = round(_entropy2(b)*43)                # entropy
    
     return (sd, mean, mode, mode_count, entropy)
 

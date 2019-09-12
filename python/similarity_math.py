@@ -7,8 +7,8 @@ import statistics
 Calculates similarity lines, histograms, and statistics.
 """
 
-# Return compensated histogram where the right slope part is flipped and added
-# to the left slope part.
+# Return compensated histogram where the right slope part is flipped
+# and added to the left slope part.
 def _compensated_histogram(size1, size2, histogram):
 
     if size1 + size2 == 0:
