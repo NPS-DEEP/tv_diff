@@ -245,9 +245,6 @@ class BrowserGraphWidget(QObject):
                              node_record1.index)
         self.scene.g_annotation.describe_node(node_record1)
 
-#        # reset scene bounding rectangle
-#        self.scene.setSceneRect(self.scene.itemsBoundingRect())
-
     # call this to accept browser scale change
     @pyqtSlot(float)
     def change_scale(self, scale):
@@ -257,15 +254,9 @@ class BrowserGraphWidget(QObject):
     def change_node_annotation(self, node_record):
         self.scene.g_annotation.describe_node(node_record)
 
-        # reset scene bounding rectangle
-        self.scene.setSceneRect(self.scene.itemsBoundingRect())
-
     # call this to set edge, node_a, and node_b text
     @pyqtSlot(EdgeRecord, NodeRecord, NodeRecord)
     def change_edge_annotation(self, edge_record, node_record_a, node_record_b):
         self.scene.g_annotation.describe_edge(edge_record,
                                         node_record_a, node_record_b)
-
-        # reset scene bounding rectangle
-        self.scene.setSceneRect(self.scene.itemsBoundingRect())
 
