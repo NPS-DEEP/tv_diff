@@ -126,7 +126,7 @@ if __name__=="__main__":
         edge_filename = "%sedge_%d.csv"%(args.outfile_prefix, args.slice_index)
 
         # process edge unless already processed
-        if not isfile(edge_filename) or getsize(file) == 0:
+        if not isfile(edge_filename) or getsize(edge_filename) == 0:
             with open(edge_filename, "w") as f:
                 if args.slice_index == 1:
                     print("Source,Target,SD,Mean,Max,Sum", file=f)
