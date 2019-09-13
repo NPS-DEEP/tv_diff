@@ -1,0 +1,53 @@
+{
+    "version": "1.0.0",
+    "filename": "/smallwork/bdallen/executable_files_500/webclnt_dll/PS01-058_WINDOWS_system32_dllcache_webclnt.dll.tmp",
+    "file_group": "webclnt_dll",
+    "file_size": 2238,
+    "file_modtime": 1115452508,
+    "md5": "CCE8EEF2C9D278BC20F28B6E0BD061E2",
+    "section_size": 500,
+    "texture_names": [
+        "sd",
+        "mean",
+        "mode",
+        "mode_count",
+        "entropy"
+    ],
+    "texture_vectors": [
+        [
+            148.05316942233964,
+            71.734,
+            50,
+            28.16,
+            195.0
+        ],
+        [
+            153.09585619473833,
+            121.948,
+            0,
+            5.632,
+            227.0
+        ],
+        [
+            143.18936156013825,
+            130.822,
+            73,
+            3.072,
+            226.0
+        ],
+        [
+            147.11039968676585,
+            131.024,
+            55,
+            3.584,
+            226.0
+        ],
+        [
+            138.58839350671818,
+            140.6344537815126,
+            115,
+            3.072,
+            210.0
+        ]
+    ]
+}
