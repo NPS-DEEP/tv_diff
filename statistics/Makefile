@@ -1,6 +1,6 @@
 graphs = \
 	node_hist_by_time.pdf node_hist_by_size.pdf \
-	edge_hist_sim_by_sd.pdf edge_hist_sim_by_ratio.pdf
+	edge_hist_sim.pdf
 texs = \
 	node_family_table.tex \
 	edge_family_statistics_table.tex \
