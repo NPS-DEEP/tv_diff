@@ -22,15 +22,19 @@ if __name__=="__main__":
 
     # files
     files = glob.glob(args.file_glob)
-    print("Processing %d files..."%len(files))
+    if args.slice_index > len(files):
+        print("Skipping index %d"%args.slice_index)
 
-    infile = files[args.slice_index-1]
-    outfile = "%s.tv"%infile
-
-    if exists(outfile):
-        print("Skipping existing file '%s'"%outfile)
     else:
-        print("Processing file '%s'"%infile)
-        calc_tv(infile, outfile, args.section_size)
+        print("Processing %d of %d files..."%(args.slice_index-1, len(files)))
 
-    print("Done.")
+        infile = files[args.slice_index-1]
+        outfile = "%s.tv"%infile
+
+        if exists(outfile):
+            print("Skipping existing file '%s'"%outfile)
+        else:
+            print("Processing file '%s'"%infile)
+            calc_tv(infile, outfile, args.section_size)
+            print("Done.")
+

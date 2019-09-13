@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os, sys, glob, itertools, hashlib
 import json
-from os.path import expanduser, exists
+from os.path import expanduser, isfile, getsize
 from argparse import ArgumentParser
 
 from settings_store import read_settings
@@ -80,7 +80,7 @@ def show_similarity_histogram_data(files, step, settings, slice_index, f):
 # main
 if __name__=="__main__":
 
-    glob_path = "/smallwork/bdallen/tv_files/*.tv"
+    glob_path = "/smallwork/bdallen/tv_files_500/*.tv"
 
     # args
     default_settings_file = os.path.join(expanduser("~"),
@@ -115,6 +115,7 @@ if __name__=="__main__":
         exit(0)
 
     else:
+
         # nodes
         if args.slice_index == 1:
             node_filename = "%snode.csv"%(args.outfile_prefix)
@@ -123,13 +124,16 @@ if __name__=="__main__":
 
         # edges
         edge_filename = "%sedge_%d.csv"%(args.outfile_prefix, args.slice_index)
-        with open(edge_filename, "w") as f:
-            if args.slice_index == 1:
-                print("Source,Target,SD,Mean,Max,Sum", file=f)
-                print(",,,,,,Combinations from %s"%args.file_glob, file=f)
-                print(",,,,,,%d files, %d combinations"%(len(files),
-                                      _total_combinations(files)), file=f)
-            show_similarity_histogram_data(files, args.step_granularity,
+
+        # process edge unless already processed
+        if not isfile(edge_filename) or getsize(file) == 0:
+            with open(edge_filename, "w") as f:
+                if args.slice_index == 1:
+                    print("Source,Target,SD,Mean,Max,Sum", file=f)
+                    print(",,,,,,Combinations from %s"%args.file_glob, file=f)
+                    print(",,,,,,%d files, %d combinations"%(len(files),
+                                          _total_combinations(files)), file=f)
+                show_similarity_histogram_data(files, args.step_granularity,
                                            settings, args.slice_index, f)
 
     print("Done processing slice %d."%args.slice_index)

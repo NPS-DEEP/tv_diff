@@ -1,6 +1,8 @@
 #!/bin/bash
-#SBATCH --array=1-1295%500
-#SBATCH --time=2-00:00:00
+#SBATCH --qos=qos_hamming
+#SBATCH --partition=primary
+#SBATCH --array=1-1187%700
+#SBATCH --time=4-00:00:00
 #SBATCH --open-mode=truncate
 #SBATCH --output=sbatch_ddiff_tv_out.txt
 

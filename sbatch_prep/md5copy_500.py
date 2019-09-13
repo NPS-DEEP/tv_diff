@@ -12,8 +12,8 @@ def do_copy(tv_filename, dest_dir):
         shutil.copy(tv_filename, os.path.join(dest_dir, "%s.tv"%file_md5))
 
 if __name__=="__main__":
-    glob_path="/smallwork/bdallen/executable_files/*/*.tv"
-    dest_dir = "/smallwork/bdallen/tv_files"
+    glob_path="/smallwork/bdallen/executable_files_500/*/*.tv"
+    dest_dir = "/smallwork/bdallen/tv_files_500"
 
     files = glob.glob(glob_path)
 
