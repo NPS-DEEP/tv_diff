@@ -56,7 +56,7 @@ class TVMainWindow(QObject):
         self.w = QMainWindow()
 
         # main window decoration
-        self.w.setGeometry(0,0,950,885)
+        self.w.setGeometry(0,0,950,900)
         self.w.setWindowTitle("Texture Vector Similarity Version %s"%VERSION)
         self.w.setWindowIcon(QIcon(window_icon))
 

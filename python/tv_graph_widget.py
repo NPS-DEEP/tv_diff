@@ -41,9 +41,7 @@ class TVGraphScene(QGraphicsScene):
         y=0
         self.tv_g_annotation = TVGAnnotation()
         self.addItem(self.tv_g_annotation)
-#        self.tv_g_annotation.setPos(QPointF(0,100-18*(6+1))) # height depends
         self.tv_g_annotation.setPos(QPointF(0,0))
-#        y+= 18*(6+1)
 
         # texture graph 1
         y+= self.tv_g_annotation.boundingRect().height() + 45

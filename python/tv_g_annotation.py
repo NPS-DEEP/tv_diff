@@ -55,10 +55,10 @@ class TVGAnnotation(QGraphicsItem):
 
         # thresholds and number of buckets
         if self.tv_data1 and self.tv_data2:
-            text2 = "sd wt: %.3f  mean wt: %.3f  " \
-                    "mode wt: %.3f  mode count wt: %.3f  " \
-                    "entropy wt: %.3f  " \
-                    "rejection threshold: %.3f  buckets: %d"%(
+            text2 = "SD Wt: %.3f, Mean Wt: %.3f, " \
+                    "Mode Wt: %.3f, Mode Count Wt: %.3f, " \
+                    "Entropy Wt: %.3f, " \
+                    "Threshold: %.3f, Buckets: %d"%(
                     settings["sd_weight"], settings["mean_weight"],
                     settings["mode_weight"], settings["mode_count_weight"], 
                     settings["entropy_weight"],
@@ -92,18 +92,20 @@ class TVGAnnotation(QGraphicsItem):
         else:
             text5 = ""
 
-        # total
+        # total annotation
         self.annotation = "%s\n%s\n%s\n%s\n%s"%(
                                           text1,text2,text3,text4,text5)
 
-        # width and height
+        # width and height but not too wide
         lines=self.annotation.split("\n")
         w=500
         fm = QFontMetrics(QFont())
         for line in lines:
             w = max(w,fm.width(line))
         self.w = w
-        self.h = (len(lines)+1) * 12
+        if self.w > 900:
+            self.w = 900
+        self.h = (len(lines)+2) * 12
 
         self.prepareGeometryChange()
 
