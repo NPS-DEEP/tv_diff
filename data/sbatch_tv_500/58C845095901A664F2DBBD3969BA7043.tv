@@ -1,0 +1,46 @@
+{
+    "version": "1.0.0",
+    "filename": "/smallwork/bdallen/executable_files_500/a0003775_dll/AE10-1149_System_Volume_Information__restore{A235E2F9-5F84-4162-ACB6-226EF7D5915B}_RP16_A0003775.dll.tmp",
+    "file_group": "a0003775_dll",
+    "file_size": 1591,
+    "file_modtime": 1300859384,
+    "md5": "58C845095901A664F2DBBD3969BA7043",
+    "section_size": 500,
+    "texture_names": [
+        "sd",
+        "mean",
+        "mode",
+        "mode_count",
+        "entropy"
+    ],
+    "texture_vectors": [
+        [
+            128.1447758747894,
+            51.348,
+            0,
+            113.152,
+            130.0
+        ],
+        [
+            113.45592631502332,
+            39.514,
+            0,
+            145.92000000000002,
+            100.0
+        ],
+        [
+            146.68374448452016,
+            54.076,
+            0,
+            126.464,
+            120.0
+        ],
+        [
+            149.170325521471,
+            43.417582417582416,
+            0,
+            27.648,
+            81.0
+        ]
+    ]
+}

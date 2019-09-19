@@ -1,0 +1,46 @@
+{
+    "version": "1.0.0",
+    "filename": "/smallwork/bdallen/executable_files_500/safrslv_dll/SG001-7022_WINDOWS_system32_dllcache_safrslv.dll.tmp",
+    "file_group": "safrslv_dll",
+    "file_size": 1582,
+    "file_modtime": 1176408298,
+    "md5": "2EDDE055293C3E32FECD3C1904176E74",
+    "section_size": 500,
+    "texture_names": [
+        "sd",
+        "mean",
+        "mode",
+        "mode_count",
+        "entropy"
+    ],
+    "texture_vectors": [
+        [
+            150.7484407879564,
+            70.23,
+            59,
+            27.136,
+            193.0
+        ],
+        [
+            145.87909053733506,
+            132.356,
+            0,
+            4.096,
+            226.0
+        ],
+        [
+            145.98547977110601,
+            125.618,
+            23,
+            3.584,
+            225.0
+        ],
+        [
+            146.37795683190134,
+            117.6951219512195,
+            17,
+            1.024,
+            182.0
+        ]
+    ]
+}
