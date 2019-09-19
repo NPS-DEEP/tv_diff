@@ -4,7 +4,7 @@ from os.path import exists, getsize
 
 if __name__=="__main__":
 #    glob_path_from_neil="/smallwork/bdallen/executable_files_from_neil/*/*.tmp"
-    glob_path_from_neil="/home/bdallen/executable_files_neil/*/*.tmp"
+    glob_path_from_neil="/home/bdallen/work/executable_files_neil/*/*.tmp"
     dest_path_tv_500="/smallwork/bdallen/tv_files_500/*.tv"
 
     total = 0
