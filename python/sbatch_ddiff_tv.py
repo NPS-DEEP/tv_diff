@@ -41,22 +41,14 @@ def show_node_data(settings, files, f):
                                 file_modtime, file_md5, section_size), file=f)
 
 def show_similarity_histogram_data(files, step, settings, slice_index, f):
-    # get combinations of files as file_pairs
-    tv_data1 = {"filename":""}
-    file_pairs = itertools.combinations(range(1, len(files)+1), 2)
-    for n1, n2 in file_pairs:
+    file_index = slice_index-1
 
-        # only process this slice index
-        if n1 != slice_index:
-            continue
+    # file1
+    tv_data1 = read_tv_file(files[file_index])
 
-        file1 = files[n1-1]
-        file2 = files[n2-1]
-
-        # get data, allow cache on file1
-        if file1 != tv_data1["filename"]:
-            tv_data1 = read_tv_file(file1)
-        tv_data2 = read_tv_file(file2)
+    # file2 iterated going forward
+    for i in range(file_index+1, len(files)):
+        tv_data2 = read_tv_file(files[i])
 
         # calculate similarity data
         d = generate_similarity_data(tv_data1, tv_data2, args.step_granularity,
@@ -69,11 +61,11 @@ def show_similarity_histogram_data(files, step, settings, slice_index, f):
         # directed
         # Source,Target,sd,mean,max,sum
         if tv_data1["file_modtime"] < tv_data2["file_modtime"]:
-            a=n1
-            b=n2
+            a=file_index+1
+            b=i+1
         else:
-            a=n2
-            b=n1
+            a=i+1
+            b=file_index+1
         print("%d,%d,%.4f,%.4f,%d,%d"%(
               a,b,d["sd"],d["mean"],d["max"],d["sum"]), file=f)
 

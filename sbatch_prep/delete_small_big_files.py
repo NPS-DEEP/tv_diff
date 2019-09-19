@@ -15,7 +15,7 @@ if __name__=="__main__":
         files = glob.glob(path)
         for file in files:
             size = getsize(file)
-            if size > 5000000 or size < 1000:
+            if size > 1000000 or size < 1000:
                 print("size %d file %s"%(size, file))
                 os.remove(file)
 
