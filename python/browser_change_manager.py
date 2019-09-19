@@ -2,7 +2,7 @@ from PyQt5.QtCore import QObject # for signal/slot support
 from PyQt5.QtCore import pyqtSignal, pyqtSlot # for signal/slot support
 from PyQt5.QtCore import Qt
 from browser_graph_data_reader import NodeRecord, EdgeRecord
-from browser_tv_filename import browser_tv_filename
+from browser_data_paths import browser_tv_filename
 
 """Provides several browser signal services."""
 

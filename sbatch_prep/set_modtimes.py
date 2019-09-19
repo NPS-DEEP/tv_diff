@@ -48,7 +48,6 @@ def set_modtimes(file_md5s, md5_modtimes):
             print("no modtime for file %s"%f)
 
 if __name__=="__main__":
-#    files = glob.glob("/work/bdallen/executable_files/*/*.tmp")
     files = glob.glob("/smallwork/bdallen/executable_files/*/*.tmp")
     bigtable_file = "bigtable.out"
     print("get md5s...")

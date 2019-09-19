@@ -2,6 +2,7 @@ from collections import defaultdict
 from show_popup import show_popup
 import csv
 from tv_time import t_string
+from browser_data_paths import GRAPH_NODES, GRAPH_EDGES
 #from PyQt5.QtCore import QObject # for signal/slot support
 #from PyQt5.QtCore import pyqtSignal # for signal/slot support
 #from PyQt5.QtCore import pyqtSlot # for signal/slot support
@@ -65,8 +66,8 @@ class EdgeRecord():
 
 def read_nodes():
     nodes = list()
-    print("Reading nodes...")
-    with open("sbatch_graph_500/nodes.csv") as f:
+    print("Reading nodes from '%s'..."%GRAPH_NODES)
+    with open(GRAPH_NODES) as f:
         reader = csv.reader(f)
         for row in reader:
             try:
@@ -84,8 +85,8 @@ def read_edges():
     edges = dict()
     connections = defaultdict(set)
 #    return edges,connections # zzfast
-    print("Reading edges...")
-    with open("sbatch_graph_500/edges.csv") as f:
+    print("Reading edges from '%s'..."%GRAPH_EDGES)
+    with open(GRAPH_EDGES) as f:
        reader = csv.reader(f)
        for row in reader:
            try:
