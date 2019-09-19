@@ -1,6 +1,8 @@
 # generated
 sbatch/*.csv
 sbatch/*_out.txt
+statistics/*.tex
+statistics/*.pdf
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
