@@ -115,9 +115,9 @@ class TVGHistogram(QGraphicsItem):
             painter.drawText(x-4, h+18+10, "%s"%(i-size1))
 
         # x axis title
-        x=w/2-60
+        x=w/2-30
         y=h+18+10+16
-        painter.drawText(x,y,"Similarity offset")
+        painter.drawText(x,y,"File offset")
 
         # y axis annotation
         painter.drawLine(w+4, h, w+8, h)

@@ -83,7 +83,7 @@ class BrowserGAxis(QGraphicsItem):
         painter.save()
         painter.translate(-32, y_max/2)
         painter.rotate(-90)
-        y_label="Edge %s\nwith respect to Node %d"%(
+        y_label="Edge %s similarity\nwith respect to Node %d"%(
                                           self.y_label, self.node1_index)
         painter.drawText(self.boundingRect(), y_label)
         painter.restore()

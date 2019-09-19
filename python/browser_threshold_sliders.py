@@ -31,7 +31,7 @@ class BrowserThresholdSliders(QWidget):
         self.sd_slider.valueChanged.connect(self._handle_sd_changed)
 
         # SD threshold_label
-        self.sd_threshold_label = QLabel("SD %.3f"%change_manager.sd_threshold)
+        self.sd_threshold_label = QLabel("Std. Dev. %.3f"%change_manager.sd_threshold)
         self.sd_threshold_label.setToolTip("Standard Deviation threshold")
 
         # max_over_sum slider

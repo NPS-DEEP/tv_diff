@@ -51,7 +51,8 @@ class BrowserGraphScene(QGraphicsScene):
         self.addItem(self.g_annotation)
 
         # axis
-        self.g_sd_axis = BrowserGAxis("Standard Deviation")
+#        self.g_sd_axis = BrowserGAxis("Standard Deviation")
+        self.g_sd_axis = BrowserGAxis("Std. Dev.")
         self.g_ratio_axis = BrowserGAxis("Max/Sum")
 
     def set_scene(self, g_sd_nodes, g_sd_edges, g_ratio_nodes, g_ratio_edges,
