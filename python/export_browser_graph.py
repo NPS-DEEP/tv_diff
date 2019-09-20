@@ -51,21 +51,6 @@ def export_browser_graph(graph_filename, scene):
     scene.g_sd_axis.paint(painter, option, None)
     painter.restore()
 
-    # ratio nodes, edges, and axis
-    for edge in scene.g_ratio_edges:
-        edge.paint(painter, option, None)
-
-    for node in scene.g_ratio_nodes:
-        painter.save()
-        painter.translate(node.pos())
-        node.paint(painter, option, None)
-        painter.restore()
-
-    painter.save()
-    painter.translate(scene.g_ratio_axis.pos())
-    scene.g_ratio_axis.paint(painter, option, None)
-    painter.restore()
-
     painter.end()
 
     # export

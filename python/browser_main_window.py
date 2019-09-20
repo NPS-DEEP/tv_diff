@@ -48,7 +48,7 @@ class BrowserMainWindow(QObject):
         # change manager
         starting_node_record = self.all_nodes[0]
         self.browser_change_manager = BrowserChangeManager(
-                                       starting_node_record, True, 1.0, 0.001)
+                                       starting_node_record, True, 1.0)
 
         # file group checkbox
         self.browser_file_group_cb = BrowserFileGroupCB(
@@ -73,7 +73,7 @@ class BrowserMainWindow(QObject):
         self.w = MasterQMainWindow(self.tv_main_window.w)
 
         # main window decoration
-        self.w.setGeometry(0,0,920,1035)
+        self.w.setGeometry(0,0,920,630)
         self.w.setWindowTitle("Texture Vector Browser Version %s"%VERSION)
         self.w.setWindowIcon(QIcon(window_icon))
 

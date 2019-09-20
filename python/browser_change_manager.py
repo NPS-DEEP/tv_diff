@@ -9,12 +9,11 @@ from browser_data_paths import browser_tv_filename
 # browser graph scale
 browser_original_scale = 1.0 # const
 
-# SettingsManager signals change: file1 index, in_group, sd_threshold,
-#                                 max_over_sum_threshold
+# SettingsManager signals change: file1 index, in_group, sd_threshold
 class BrowserChangeManager(QObject):
 
     # signal
-    signal_inputs_changed = pyqtSignal(NodeRecord, bool, float, float,
+    signal_inputs_changed = pyqtSignal(NodeRecord, bool, float,
                                                           name='inputsChanged')
     signal_node_hovered = pyqtSignal(NodeRecord, name='nodeHovered')
     signal_edge_hovered = pyqtSignal(EdgeRecord, NodeRecord, NodeRecord,
@@ -22,8 +21,7 @@ class BrowserChangeManager(QObject):
     signal_want_tv_window = pyqtSignal(str, str, name='wantTVWindow')
     signal_browser_scale_changed = pyqtSignal(float, name='BrowserScaleChanged')
 
-    def __init__(self, node_record1, in_group,
-                 sd_threshold, max_over_sum_threshold):
+    def __init__(self, node_record1, in_group, sd_threshold):
         super(BrowserChangeManager, self).__init__()
 
         self._scale = browser_original_scale
@@ -31,14 +29,12 @@ class BrowserChangeManager(QObject):
         self.node_record1 = node_record1
         self.in_group = in_group
         self.sd_threshold = sd_threshold
-        self.max_over_sum_threshold = max_over_sum_threshold
         self._emit()
 
     def _emit(self):
         self.signal_inputs_changed.emit(self.node_record1,
                                         self.in_group,
-                                        self.sd_threshold,
-                                        self.max_over_sum_threshold)
+                                        self.sd_threshold)
 
     # called from browser main window handler, similarity gaph
     def change_node_record1(self, node_record1):
@@ -53,12 +49,6 @@ class BrowserChangeManager(QObject):
     @pyqtSlot(float)
     def change_sd_threshold(self, sd_threshold):
         self.sd_threshold = sd_threshold
-        self._emit()
-
-    # called from Max/Sum slider change
-    @pyqtSlot(float)
-    def change_max_over_sum_threshold(self, max_over_sum_threshold):
-        self.max_over_sum_threshold = max_over_sum_threshold
         self._emit()
 
     # called from browser main window handler

@@ -58,10 +58,9 @@ class EdgeRecord():
 
     def text(self):
         text = "Edge %d - %d: " \
-               "Standard deviation: %.4f, Mean: %.4f, Max: %d, Sum: %d, " \
-               "Max/Sum: %.4f"%(
+               "Standard deviation: %.4f, Mean: %.4f, Max: %d, Sum: %d"%(
                self.index1, self.index2,
-               self.sd, self.mean, self.maxv, self.sumv, self.maxv/self.sumv)
+               self.sd, self.mean, self.maxv, self.sumv)
         return text
 
 def read_nodes():

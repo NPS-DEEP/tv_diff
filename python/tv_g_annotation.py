@@ -70,13 +70,9 @@ class TVGAnnotation(QGraphicsItem):
         # similarity
         if self.tv_data1 and self.tv_data2:
             d=self.similarity_data
-            if d["sum"] > 0:
-                max_over_sum = d["max"]/d["sum"]
-            else:
-                max_over_sum = 0
             text3 = "Compensated statistics: " \
-                    "SD: %.4f, Mean: %.4f, Max: %d, Sum: %d, Max/Sum: %.4f"%(
-               d["sd"], d["mean"], d["max"], d["sum"], max_over_sum)
+                    "SD: %.4f, Mean: %.4f, Max: %d, Sum: %d"%(
+               d["sd"], d["mean"], d["max"], d["sum"])
         else:
             text3 = ""
 

@@ -3,8 +3,7 @@ from PyQt5.QtCore import Qt, pyqtSlot, QAbstractTableModel, QTimer, QVariant
 from PyQt5.QtCore import QModelIndex
 from tv_time import t_string
 
-COLUMN_TITLES=["index1","index2","sd","mean","max","sum","max/sum"]
-#COLUMN_TITLES=["index","filename","file_group","file_size","modtime","file_md5"]
+COLUMN_TITLES=["index1","index2","sd","mean","max","sum"]
 
 class BrowserEdgeTableModel(QAbstractTableModel):
 
@@ -60,8 +59,6 @@ class BrowserEdgeTableModel(QAbstractTableModel):
                 return self.edge_records[row].maxv
             if column == 5:
                 return self.edge_records[row].sumv
-            if column == 6:
-                return self.edge_records[row].maxv / self.edge_records[row].sumv
             raise RuntimeError("bad")
         else:
             return QVariant()

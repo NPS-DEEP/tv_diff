@@ -22,17 +22,15 @@ class BrowserGAnnotation(QGraphicsItem):
         # data
         self.annotation = "Click Node to open a .tv file."
 
-    def describe_inputs(self, in_group, max_sd_similarity, max_ratio_similarity,
-                                                              node1_index):
+    def describe_inputs(self, in_group, max_sd_similarity, node1_index):
         if in_group:
             in_group_text = "Stay in group, "
         else:
             in_group_text = "All groups, "
         self.inputs_text="Similarity to node %d: %s" \
-                         "Standard Deviation similarity > %.3f, " \
-                         "Max/Sum similarity > %.6f"%(
+                         "Standard Deviation similarity > %.3f"%(
                          node1_index, in_group_text,
-                         max_sd_similarity, max_ratio_similarity)
+                         max_sd_similarity)
 
     def describe_node(self, node_record):
         self.annotation = "%s\n\n%s"%(self.inputs_text, node_record.text())

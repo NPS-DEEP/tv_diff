@@ -25,7 +25,7 @@ class BrowserEdgeWindow(QObject):
         self.w = QMainWindow()
 
         # main window decoration
-        self.w.setGeometry(0,0,800,900)
+        self.w.setGeometry(0,0,610,900)
         self.w.setWindowTitle("Open Similarity Edge")
         self.w.setWindowIcon(QIcon(window_icon))
         self.w.setWindowModality(Qt.ApplicationModal)

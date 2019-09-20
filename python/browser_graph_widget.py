@@ -24,7 +24,6 @@ and wraps these:
   * BrowserGraphScene
 
 max_sd_similarity is the largest SD similarity value in the dataset
-max_ratio_similarity is the largest Max/Sum similarity value in the dataset
 """
 
 # GraphicsView
@@ -53,17 +52,12 @@ class BrowserGraphScene(QGraphicsScene):
         # axis
 #        self.g_sd_axis = BrowserGAxis("Standard Deviation")
         self.g_sd_axis = BrowserGAxis("Std. Dev.")
-        self.g_ratio_axis = BrowserGAxis("Max/Sum")
 
-    def set_scene(self, g_sd_nodes, g_sd_edges, g_ratio_nodes, g_ratio_edges,
-                  max_sd_similarity, max_ratio_similarity, node1_index):
+    def set_scene(self, g_sd_nodes, g_sd_edges, max_sd_similarity, node1_index):
 
         self.g_sd_nodes = g_sd_nodes
         self.g_sd_edges = g_sd_edges
-        self.g_ratio_nodes = g_ratio_nodes
-        self.g_ratio_edges = g_ratio_edges
         self.max_sd_similarity = max_sd_similarity
-        self.max_ratio_similarity = max_ratio_similarity
         self.node1_index = node1_index
 
         # use Python to remove previous items instead of QGraphicsScene
@@ -80,13 +74,6 @@ class BrowserGraphScene(QGraphicsScene):
             self.addItem(g_edge)
         self.addItem(self.g_sd_axis)
 
-        # add ratio graph nodes, edges, axis
-        for g_node in g_ratio_nodes:
-            self.addItem(g_node)
-        for g_edge in g_ratio_edges:
-            self.addItem(g_edge)
-        self.addItem(self.g_ratio_axis)
-
         # set scale
         self.set_scale(self.scale)
 
@@ -101,16 +88,6 @@ class BrowserGraphScene(QGraphicsScene):
             edge.set_position()
         self.g_sd_axis.set_position(dy, self.scale, self.max_sd_similarity,
                                     self.node1_index)
-
-        # ratio nodes, edgs, axis
-        dy += int(self.g_sd_axis.boundingRect().height()) + 50
-        for node in self.g_ratio_nodes:
-            node.set_position(dy, self.scale, self.max_ratio_similarity)
-        for edge in self.g_ratio_edges:
-            edge.set_position()
-        self.g_ratio_axis.set_position(dy,
-                                      self.scale, self.max_ratio_similarity,
-                                      self.node1_index)
 
         # reset scene bounding rectangle
         self.setSceneRect(self.itemsBoundingRect())
@@ -140,22 +117,17 @@ class BrowserGraphWidget(QObject):
         change_manager.signal_node_hovered.connect(self.change_node_annotation)
         change_manager.signal_edge_hovered.connect(self.change_edge_annotation)
 
-    def _make_g_nodes(self, node_record1, in_group,
-                                     sd_threshold, ratio_threshold):
+    def _make_g_nodes(self, node_record1, in_group, sd_threshold):
         # We track node similarity then calculate node points.
         # Then we can create correctly located edge points.
 
         # nodes
         max_sd_similarity = 0.0
-        max_ratio_similarity = 0.0
         g_sd_nodes = list()
-        g_ratio_nodes = list()
 
         # node 1
         g_sd_node1 = BrowserGNode(node_record1, True, 0, self.change_manager)
         g_sd_nodes.append(g_sd_node1)
-        g_ratio_node1 = BrowserGNode(node_record1, True, 0, self.change_manager)
-        g_ratio_nodes.append(g_ratio_node1)
 
         # require file group membership
         if in_group:
@@ -182,24 +154,15 @@ class BrowserGraphWidget(QObject):
             if edge_record.sd < sd_threshold:
                 continue
 
-            # skip if below max/min threshold
-            if edge_record.maxv/edge_record.sumv < ratio_threshold:
-                continue
-
             # accept node
             sd_similarity = edge_record.sd
-            ratio_similarity = edge_record.maxv/edge_record.sumv
             g_sd_nodes.append(BrowserGNode(node_record, False,
                            sd_similarity, self.change_manager))
-            g_ratio_nodes.append(BrowserGNode(node_record, False,
-                           ratio_similarity, self.change_manager))
             max_sd_similarity = max(sd_similarity, max_sd_similarity)
-            max_ratio_similarity = max(ratio_similarity, max_ratio_similarity)
 
-        return g_sd_nodes, g_ratio_nodes, \
-               max_sd_similarity, max_ratio_similarity
+        return g_sd_nodes, max_sd_similarity
 
-    def _make_g_edges(self, g_nodes, sd_threshold, ratio_threshold):
+    def _make_g_edges(self, g_nodes, sd_threshold):
         g_edges = list()
         all_edges = self.all_edges # optimization
         for g_node_a, g_node_b in itertools.combinations(g_nodes, 2):
@@ -218,32 +181,20 @@ class BrowserGraphWidget(QObject):
                 if edge_record.sd < sd_threshold:
                     continue
 
-                # skip if below max/min threshold
-                if edge_record.maxv/edge_record.sumv < ratio_threshold:
-                    continue
-
                 g_edges.append(BrowserGEdge(edge_record, g_node_a, g_node_b,
                                                   self.change_manager))
         return g_edges
 
     # call this to accept input change
-    @pyqtSlot(NodeRecord, bool, float, float)
-    def change_inputs(self, node_record1, in_group,
-                      sd_threshold, ratio_threshold):
-        g_sd_nodes, g_ratio_nodes, max_sd_similarity, max_ratio_similarity = \
-                      self._make_g_nodes(node_record1, in_group,
-                                         sd_threshold, ratio_threshold)
-        g_sd_edges = self._make_g_edges(g_sd_nodes,
-                                         sd_threshold, ratio_threshold)
-        g_ratio_edges = self._make_g_edges(g_ratio_nodes,
-                                         sd_threshold, ratio_threshold)
+    @pyqtSlot(NodeRecord, bool, float)
+    def change_inputs(self, node_record1, in_group, sd_threshold):
+        g_sd_nodes, max_sd_similarity = self._make_g_nodes(
+                                       node_record1, in_group, sd_threshold)
+        g_sd_edges = self._make_g_edges(g_sd_nodes, sd_threshold)
         self.scene.set_scene(g_sd_nodes, g_sd_edges,
-                             g_ratio_nodes, g_ratio_edges,
-                             max_sd_similarity, max_ratio_similarity,
-                             node_record1.index)
+                             max_sd_similarity, node_record1.index)
         self.scene.g_annotation.describe_inputs(
-                             in_group, sd_threshold, ratio_threshold,
-                             node_record1.index)
+                             in_group, sd_threshold, node_record1.index)
         self.scene.g_annotation.describe_node(node_record1)
 
     # call this to accept browser scale change
