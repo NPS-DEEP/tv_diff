@@ -55,10 +55,13 @@ def edge_cross_family_table_common(mode, outfile):
 
     with open(outfile, "w") as f:
         # left half
+        print("\\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|r|r|}", file=f)
+        print("\\hline \\hline", file=f)
         print("\\textbf{Family} & \\textbf{n} "
               "& \\textbf{1} & \\textbf{2} & \\textbf{3} & \\textbf{4} "
               "& \\textbf{5} & \\textbf{6} & \\textbf{7} & \\textbf{8} ",
-              "& \\textbf{9} & \\textbf{10} & \\textbf{11} & \\textbf{12}\\\\", file=f)
+              "& \\textbf{9} & \\textbf{10} & \\textbf{11} & \\textbf{12}\\\\",
+                                                                  file=f)
         print("\\hline", file=f)
         for i in range(23):
             l="%s&%d"%(groups[i],i+1)
@@ -74,8 +77,11 @@ def edge_cross_family_table_common(mode, outfile):
                     l += "&-"
             l += "\\\\"
             print(l, file=f)
+        print("\\hline", file=f)
+        print("\\end{tabular}", file=f)
 
         # right half
+        print("\\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|r|}", file=f)
         print("\\hline", file=f)
         print("\\hline", file=f)
         print("\\textbf{Family} & \\textbf{n} "
@@ -97,4 +103,6 @@ def edge_cross_family_table_common(mode, outfile):
                     l += "&-"
             l += "\\\\"
             print(l, file=f)
+        print("\\hline", file=f)
+        print("\\end{tabular}", file=f)
 
