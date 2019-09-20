@@ -92,7 +92,10 @@ class BrowserGNode(QGraphicsItem):
 
     def mousePressEvent(self, event):
         super(BrowserGNode, self).mousePressEvent(event)
-        if not self.is_node1:
+        if self.is_node1:
+            # open node1 in GUI
+            self.change_manager.open_node_record1(self.node_record)
+        else:
             # select this node as file1
             self.change_manager.change_node_record1(self.node_record)
 

@@ -41,7 +41,9 @@ class BrowserChangeManager(QObject):
         self.node_record1 = node_record1
         self._emit()
 
-        # also open TV GUI to show this node
+    # called from similarity gaph
+    def open_node_record1(self, node_record1):
+        # open TV GUI to show this node
         tv_filename = browser_tv_filename(node_record1.file_md5)
         self.signal_want_tv_window.emit(tv_filename, None)
 
