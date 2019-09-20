@@ -70,7 +70,7 @@ def edge_cross_family_table_common(mode, outfile):
                     if mode == "sd":
                         l += "&%.1f"%statistics.mean(edges[groups[i],groups[j]])
                     elif mode == "ratio":
-                        l += "&%.3f"%statistics.mean(edges[groups[i],groups[j]])
+                        l += "&%.2f"%statistics.mean(edges[groups[i],groups[j]])
                     else:
                         raise RuntimeError("bad")
                 else:
@@ -96,7 +96,7 @@ def edge_cross_family_table_common(mode, outfile):
                     if mode == "sd":
                         l += "&%.1f"%statistics.mean(edges[groups[i],groups[j]])
                     elif mode == "ratio":
-                        l += "&%.3f"%statistics.mean(edges[groups[i],groups[j]])
+                        l += "&%.2f"%statistics.mean(edges[groups[i],groups[j]])
                     else:
                         raise RuntimeError("bad")
                 else:
