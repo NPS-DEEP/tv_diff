@@ -34,7 +34,7 @@ from settings_store import default_settings_file
 # default
 default_settings = {"sd_weight":0.5, "mean_weight":0.5, "mode_weight":0.0,
                     "mode_count_weight":0.5, "entropy_weight":0.5,
-"rejection_threshold":5}
+                    "rejection_threshold":5}
 
 settings = deepcopy(default_settings)
 

@@ -3,13 +3,6 @@ from show_popup import show_popup
 import csv
 from tv_time import t_string
 from browser_data_paths import GRAPH_NODES, GRAPH_EDGES
-#from PyQt5.QtCore import QObject # for signal/slot support
-#from PyQt5.QtCore import pyqtSignal # for signal/slot support
-#from PyQt5.QtCore import pyqtSlot # for signal/slot support
-
-#from settings_manager import settings
-#from settings_store import texture_compatible
-#from similarity_math import generate_similarity_data, empty_similarity_data
 
 """Provides graph data:
 

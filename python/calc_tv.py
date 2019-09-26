@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # requires numpy: "sudo pip3 install numpy"
-#no requires scipy: "sudo pip3 install scipy"
 
 import sys, os, hashlib
 from argparse import ArgumentParser

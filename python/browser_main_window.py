@@ -13,7 +13,6 @@ from version_file import VERSION
 from browser_change_manager import BrowserChangeManager
 from browser_file_group_cb import BrowserFileGroupCB
 from browser_threshold_sliders import BrowserThresholdSliders
-#from browser_graph_main_widget import BrowserGraphMainWidget
 from browser_graph_data_reader import read_nodes, read_edges
 from browser_graph_widget import BrowserGraphWidget
 from browser_file1_window import BrowserFile1Window
