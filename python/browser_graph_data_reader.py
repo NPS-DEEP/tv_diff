@@ -83,7 +83,6 @@ def read_nodes():
 def read_edges():
     edges = dict()
     connections = defaultdict(set)
-#    return edges,connections # zzfast
     print("Reading edges from '%s'..."%GRAPH_EDGES)
     with open(GRAPH_EDGES) as f:
        reader = csv.reader(f)
