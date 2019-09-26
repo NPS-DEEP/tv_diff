@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QMessageBox
 """
 
 def show_popup(parent, message):
-    # debug zz=5/0
+    # raise RuntimeError("bad") # force fail for diagnostics
     mb = QMessageBox()
     mb.setText(message)
     mb.exec()

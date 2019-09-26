@@ -10,8 +10,6 @@ from show_popup import show_popup
 if __name__=="__main__":
     parser = ArgumentParser(
                    description="TV file similarity browser.")
-#    parser.add_argument("index1", type=int, nargs="?", default=1,
-#zz                        help="The index of the first file to compare with.")
     parser.add_argument("-i", "--index", type=int,
                         help="The index of the first file to compare with.")
 
