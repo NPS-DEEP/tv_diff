@@ -1,4 +1,4 @@
-This directory contains data and the program for preparing
+This directory contains data and programs for preparing
 the dataset used by the `tv_browser.py` tool.
 
 File `set_modtimes.py` along with `exe_modtimes.out` and
