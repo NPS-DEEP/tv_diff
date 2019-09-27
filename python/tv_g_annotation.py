@@ -55,10 +55,10 @@ class TVGAnnotation(QGraphicsItem):
 
         # thresholds and number of buckets
         if self.tv_data1 and self.tv_data2:
-            text2 = "SD Wt: %.3f, Mean Wt: %.3f, " \
-                    "Mode Wt: %.3f, Mode Count Wt: %.3f, " \
-                    "Entropy Wt: %.3f, " \
-                    "Threshold: %.3f, Buckets: %d"%(
+            text2 = "Texture weights: Std. dev.: %.3f, Mean: %.3f, " \
+                    "Mode: %.3f, Mode Count: %.3f, " \
+                    "Entropy: %.3f, " \
+                    "Distance threshold: %.3f, Buckets: %d"%(
                     settings["sd_weight"], settings["mean_weight"],
                     settings["mode_weight"], settings["mode_count_weight"], 
                     settings["entropy_weight"],
@@ -70,8 +70,8 @@ class TVGAnnotation(QGraphicsItem):
         # similarity
         if self.tv_data1 and self.tv_data2:
             d=self.similarity_data
-            text3 = "Compensated statistics: " \
-                    "SD: %.4f, Mean: %.4f, Max: %d, Sum: %d"%(
+            text3 = "Histogram height statistics: " \
+                    "Std. dev.: %.4f, Mean: %.4f, Max: %d, Sum: %d"%(
                d["sd"], d["mean"], d["max"], d["sum"])
         else:
             text3 = ""
