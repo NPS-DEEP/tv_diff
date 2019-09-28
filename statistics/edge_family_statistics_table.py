@@ -58,11 +58,13 @@ with open("edge_family_statistics_table.tex", "w") as f:
             sd_group_sds = 0
             ratio_group_sds = 0
 
-        # group, num_edges, min SD, max SD, mean SD, SD SD,
-        #                   min ratio, max ratio, mean ratio, SD ratio
-        print("%s&%d&%.1f&%.1f&%.1f&%.1f&"
-                    "%.3f&%.3f&%.3f&%.3f\\\\"%(group, num_edges,
-              sd_mins, sd_maxs, sd_means, sd_group_sds,
-              ratio_mins, ratio_maxs, ratio_means, ratio_group_sds),
-                                                              file=f)
+#        # group, num_edges, min SD, max SD, mean SD, SD SD,
+#        #                   min ratio, max ratio, mean ratio, SD ratio
+#        print("%s&%d&%.1f&%.1f&%.1f&%.1f&"
+#                    "%.3f&%.3f&%.3f&%.3f\\\\"%(group, num_edges,
+#              sd_mins, sd_maxs, sd_means, sd_group_sds,
+#              ratio_mins, ratio_maxs, ratio_means, ratio_group_sds),
+#                                                              file=f)
+
+        print("%s&%d&%.1f\\\\"%(group, sd_means, num_edges), file=f)
 

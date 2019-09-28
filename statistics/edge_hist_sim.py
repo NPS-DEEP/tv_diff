@@ -9,7 +9,6 @@ import csv
 from graph_paths import edgefile
 
 x_sd = list()
-x_ratio = list()
 
 # Source,Target,SD,Mean,Max,Sum
 # ,,,,,,Combinations from /smallwork/bdallen/tv_files/*.tv
@@ -21,37 +20,19 @@ with open(edgefile) as f:
     for row in r:
         try:
             x_sd.append(float(row[2]))
-            x_ratio.append(int(row[4])/int(row[5]))
         except ValueError:
             pass
-
-if len(x_sd) != len(x_ratio):
-    raise(RuntimeError("Bad"))
 
 print("count: %d:"%len(x_sd))
 
 x_sd = pd.Series(x_sd)
-x_ratio = pd.Series(x_ratio)
 
-fig, (ax1,ax2) = plt.subplots(1,2)
-fig.suptitle("Similarity matches by Standard Deviation (SD) and Max/Sum")
-
-logbins1 = np.logspace(0,2.5,50)
-ax1.hist(x_sd, bins=logbins1, edgecolor="black")
-#ax1.hist(x_sd, log=True, bins=logbins1, edgecolor="black")
-#zax1.xscale('log')
-ax1.set_title("Matches by SD")
-ax1.set(xlabel="Similarity measure in SD",
-        ylabel="Number of similarity matches",
-        xscale="log")
-
-#logbins2 = np.logspace(0,.001,50)
-#ax2.hist(x_ratio, bins=logbins1, edgecolor="black")
-ax2.hist(x_ratio, bins=50, edgecolor="black")
-#ax2.hist(x_ratio, log=True, bins=logbins1, edgecolor="black")
-ax2.set_title("Matches by Max/Sum")
-ax2.set(xlabel="Similarity measure in Max/Sum",
-        yscale="log")
+logbins = np.logspace(0,2.5,50)
+plt.hist(x_sd, bins=logbins, edgecolor="black")
+plt.xscale('log')
+plt.title("File similarity across all files")
+plt.xlabel("Similarity measure")
+plt.ylabel("Number of similarity matches")
 
 #plt.grid(True)
 #plt.show()
