@@ -11,7 +11,7 @@ if __name__=="__main__":
     glob_path_tv_500="/smallwork/bdallen/executable_files_500/*/*.tv"
     glob_path_tv_512="/smallwork/bdallen/executable_files_512/*/*.tv"
     dest_path_tv_500="/smallwork/bdallen/tv_files_500/*.tv"
-    dest_path_tv_512="/smallwork/bdallen/tv_files_500/*.tv"
+    dest_path_tv_512="/smallwork/bdallen/tv_files_512/*.tv"
 
     paths = [
              glob_path_neil,
