@@ -82,12 +82,28 @@ class TVGHistogram(QGraphicsItem):
 
         # histograms
         histogram = self.similarity_data["similarity_histogram"]
+        mean_power_histogram = self.similarity_data["mean_power_histogram"]
+        compensated_histogram = self.similarity_data["compensated_histogram"]
 
         # similarity histogram
-#zz        painter.setPen(QColor(0,0,0,255)) # solid black
+        painter.setPen(QColor(0,0,0,255)) # solid black
         for x in range(len(histogram)):
             y=round(histogram[x]/scale)
             painter.drawLine(x,h,x,max(h-y,0))
+
+        # mean power histogram
+        painter.setPen(QColor(0,0,255,64)) # blue opaque
+        for x in range(len(mean_power_histogram)):
+            y=round(mean_power_histogram[x]/scale)
+            painter.drawLine(x,h,x,max(h-y,0))
+        painter.setPen(QColor(0,0,0,255)) # solid black
+
+        # compensated histogram
+        painter.setPen(QColor(255,0,0,64)) # red opaque
+        for x in range(len(compensated_histogram)):
+            y=round(compensated_histogram[x]/scale)
+            painter.drawLine(x,h,x,max(h-y,0))
+        painter.setPen(QColor(0,0,0,255)) # solid black
 
         # x axis annotation
         w = self.w
