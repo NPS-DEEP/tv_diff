@@ -6,6 +6,6 @@
 . /etc/profile
 
 module load lang/python/3.6.2
-python3.6 ../python/sbatch_calc_tv.py ${SLURM_ARRAY_TASK_ID} -f "/smallwork/bdallen/executable_files_500/*/*.tmp" -s 512
+python3.6 ../python/sbatch_calc_tv.py ${SLURM_ARRAY_TASK_ID} -f "/smallwork/bdallen/executable_files_512/*/*.tmp" -s 512
 
 
