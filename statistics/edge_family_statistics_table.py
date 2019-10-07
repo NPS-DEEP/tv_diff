@@ -66,5 +66,5 @@ with open("edge_family_statistics_table.tex", "w") as f:
 #              ratio_mins, ratio_maxs, ratio_means, ratio_group_sds),
 #                                                              file=f)
 
-        print("%s&%d&%.1f\\\\"%(group, sd_means, num_edges), file=f)
+        print("%s&%.1f&%d\\\\"%(group, sd_means, num_edges), file=f)
 
