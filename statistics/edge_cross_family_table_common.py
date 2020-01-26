@@ -57,7 +57,7 @@ def edge_cross_family_table_common(mode, outfile):
         # left half
         print("\\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|r|r|}", file=f)
         print("\\hline \\hline", file=f)
-        print("\\textbf{Family} & \\textbf{n} "
+        print("\\textbf{Family} & \\textbf{No.} "
               "& \\textbf{1} & \\textbf{2} & \\textbf{3} & \\textbf{4} "
               "& \\textbf{5} & \\textbf{6} & \\textbf{7} & \\textbf{8} ",
               "& \\textbf{9} & \\textbf{10} & \\textbf{11} & \\textbf{12}\\\\",
@@ -84,7 +84,7 @@ def edge_cross_family_table_common(mode, outfile):
         print("\\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|r|}", file=f)
         print("\\hline", file=f)
         print("\\hline", file=f)
-        print("\\textbf{Family} & \\textbf{n} "
+        print("\\textbf{Family} & \\textbf{No.} "
               "& \\textbf{13} & \\textbf{14} & \\textbf{15} & \\textbf{16} "
               "& \\textbf{17} & \\textbf{18} & \\textbf{19} & \\textbf{20} "
               "& \\textbf{21} & \\textbf{22} & \\textbf{23}\\\\", file=f)
